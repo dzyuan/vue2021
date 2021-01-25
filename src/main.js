@@ -11,6 +11,9 @@ import player from './pages/player.vue';
 import projectlist from './pages/project/list.vue';
 import addproject from './pages/project/add.vue';
 import App from './App.vue'
+import axios from 'axios'
+import vueaxios from 'vue-axios'
+
 import {createRouter,createWebHistory}  from 'vue-router'
 import store from './store'
 //import './plugins/element.js'
@@ -29,4 +32,4 @@ const router =createRouter({
     ]
 })
 
-createApp(App).use(store).use(router).use(ElementPlus).mount('#app')
+createApp(App).use(store).use(router).use(ElementPlus).use(vueaxios, axios).mount('#app')
