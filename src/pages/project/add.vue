@@ -129,7 +129,7 @@
 
 <script>
 
-
+import axios from 'axios'
 
 
 export default {
@@ -306,7 +306,8 @@ export default {
   },
   methods: {
     onSubmit(formProject) {
-      this.$axios
+       console.log('axios+' + axios)
+      axios
         .post('http://localhost:3000/api/project', formProject)
         .then((res) => {
           this.feedback = res.data
