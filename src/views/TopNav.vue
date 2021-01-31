@@ -14,7 +14,7 @@
     <el-menu-item index="2-3"><el-link href="http://10.162.98.161:8900/parametric_models/index.html" target="blank">展示</el-link></el-menu-item>
     
   </el-submenu>
-  <el-menu-item index="3" ><el-link href="/keji" >科技创新</el-link></el-menu-item>
+  <el-menu-item index="3" ><router-link to="/keji">科技创新</router-link></el-menu-item>
   <el-menu-item index="4" ><el-link href="/zhishi" >知识库</el-link></el-menu-item>
   <el-menu-item index="5" ><el-link href="/bim" >BIM 培训</el-link></el-menu-item>
   <el-menu-item index="6" ><el-link href="/web" >网站资源</el-link></el-menu-item>

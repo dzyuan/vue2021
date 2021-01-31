@@ -5,7 +5,7 @@
 <el-col :span="6"><el-card :body-style="{ padding: '0px' }">
       <img src="..\..\public\lixiang.jpg" class="image">
       <div style="padding: 14px;" class="bg-purple-dark">
-        <span><el-link href="/projectlist" >立项管理</el-link></span>
+        <span><router-link to="/projectlist" >立项管理</router-link></span>
         
       </div>
     </el-card></el-col>

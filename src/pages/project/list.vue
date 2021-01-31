@@ -16,7 +16,7 @@
       </div>
     </el-table-column>
   </el-table>
-<span><el-link href="/addproject" >新增立项</el-link></span>
+<span><router-link to="/addproject" >新增立项</router-link></span>
 
 </template>
 

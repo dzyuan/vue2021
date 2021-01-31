@@ -1,6 +1,8 @@
-import { createStore } from 'vuex'
+import { createStore } from 'vuex';
+import loginModule from '@/store/modules/login';
+import projectModule from '@/store/modules/project';
 
-export default createStore({
+export default createStore ({
   state: {
   },
   mutations: {
@@ -8,5 +10,10 @@ export default createStore({
   actions: {
   },
   modules: {
-  }
-})
+    login: loginModule,
+    project:projectModule
+    }
+
+});
+
+
