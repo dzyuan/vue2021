@@ -15,10 +15,10 @@
     
   </el-submenu>
   <el-menu-item index="3" ><router-link to="/keji">科技创新</router-link></el-menu-item>
-  <el-menu-item index="4" ><el-link href="/zhishi" >知识库</el-link></el-menu-item>
-  <el-menu-item index="5" ><el-link href="/bim" >BIM 培训</el-link></el-menu-item>
-  <el-menu-item index="6" ><el-link href="/web" >网站资源</el-link></el-menu-item>
-  <el-menu-item index="7" ><el-link href="/about" >about</el-link></el-menu-item>
+  <el-menu-item index="4" ><router-link to="/zhishi">知识库</router-link></el-menu-item>
+  <el-menu-item index="5" ><router-link to="/bim">BIM培训</router-link></el-menu-item>
+  <el-menu-item index="6" ><router-link to="/web">网站资源</router-link></el-menu-item>
+  <el-menu-item index="7" ><router-link to="/about">关于我们</router-link></el-menu-item>
 </el-menu>
 </template>
 

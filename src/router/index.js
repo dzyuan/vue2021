@@ -3,6 +3,7 @@ import store from '../store';
 import Home from '../pages/home.vue';
 import about from '../pages/about.vue';
 import keji from '../pages/keji.vue';
+import zhishi from '../pages/zhishi.vue';
 import web from '../pages/web.vue';
 import web3d from '../pages/web3d.vue';
 import bim from '../pages/bim.vue';
@@ -21,6 +22,7 @@ const routes = [
   { path: '/web3d', name:'web3d', component: web3d },
   { path: '/bim',  name:'bim',component: bim },
   { path: '/keji', name:'keji', component: keji },
+  { path: '/zhishi', name:'zhishi', component: zhishi },
   { path: '/player', name:'player', component: player },
   { path: '/projectlist',  name:'projectlist', component: projectlist },
   { path: '/addproject',  name:'addproject',component: addproject },
@@ -33,7 +35,9 @@ const router = createRouter({
 });
 router.beforeEach((to,from,next)=>
 {
-  if (to.name !== 'login' && !store.state.loggedIn ) next({ name: 'login' });
-  else next();
+   if (to.name !== 'login' && !store.state.loggedIn ) next({ name: 'login' });
+   else next();
+ 
 });
+
 export default router;

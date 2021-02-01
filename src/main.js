@@ -11,6 +11,6 @@ import store from './store';
 import router from './router';
 
 
-
 createApp(App).use(store).use(router).use(ElementPlus).use(vueaxios, axios).mount('#app');
+//createApp(App).use(store).use(router).use(ElementPlus).mount('#app');
 
