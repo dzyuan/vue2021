@@ -3,6 +3,7 @@
     <authForm buttonText="登录" :onSubmit="onLogin" />
     {{ feedback }}
   </el-main>
+  <router-link to="/reg">注册用户</router-link>
 </template>
 
 <script>

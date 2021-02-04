@@ -11,6 +11,7 @@ import player from '../pages/player.vue';
 import projectlist from '../pages/project/list.vue';
 import addproject from '../pages/project/add.vue';
 import login from '../pages/login.vue';
+import reg from '../pages/reg.vue';
 const routes = [
   {
     path: '/',
@@ -27,6 +28,7 @@ const routes = [
   { path: '/projectlist',  name:'projectlist', component: projectlist },
   { path: '/addproject',  name:'addproject',component: addproject },
   { path: '/login',  name:'login',component: login },
+  { path: '/reg',  name:'reg',component: reg },
 ];
 
 const router = createRouter({
@@ -34,8 +36,8 @@ const router = createRouter({
   routes
 });
 router.beforeEach((to,from,next)=>
-{
-   if (to.name !== 'login' && !store.state.loggedIn ) next({ name: 'login' });
+{if (to.name==="reg"&& !store.state.loggedIn) next();
+   else if (to.name !== 'login' && !store.state.loggedIn ) next({ name: 'login' });
    else next();
  
 });

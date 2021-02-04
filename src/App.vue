@@ -1,6 +1,6 @@
 <template>
   <el-container id="app">
-    <el-header style="text-align: right; font-size: 12px">
+    <el-header v-if= 'loggedIn' style="text-align: right; font-size: 12px">
       <TopNav />
     </el-header>
 
@@ -12,7 +12,7 @@
     </el-footer>
   </el-container>
 
-  <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+
 </template>
 
 <script>
