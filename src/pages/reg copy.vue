@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import AxiosService from "../service/AxiosService";
+import axios from "axios";
 
 export default {
   data() {
@@ -67,6 +67,7 @@ export default {
       ruleForm: {
         username: "",
         password: "",
+        checkPass: "",
       },
       rules: {
         username: [{ validator: checkUsername, trigger: "blur" }],
@@ -77,27 +78,23 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          AxiosService
-            .post("/api/user/signup", this[formName])
-            .then((res) => {
-              console.log(res);
-             this.$router.push("/login")
-            })
-            .catch((error,res)=>{console.log(error)
-             console.log(res)
-             alert("error!" + error)
-
-            });
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
+      //   this.$refs[formName].validate((valid) => {
+      //     if (valid) {
+      //          axios
+      //     .post('http://localhost:3000/api/user/signup', formName)
+      //     .then((res) => {
+      //         console.log(res)
+      //       alert("submit!" +res);
+      //       })
+      //     } else {
+      //       console.log("error submit!!");
+      //       return false;
+      //     }
+      //   });
+      // },
+      // resetForm(formName) {
+      //   this.$refs[formName].resetFields();
+      console.log(formName);
     },
   },
 };
