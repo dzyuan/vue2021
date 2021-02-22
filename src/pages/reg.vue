@@ -33,7 +33,8 @@
 </template>
 
 <script>
-import AxiosService from "../service/AxiosService";
+import ajax from '../service/ajax';
+
 
 export default {
   data() {
@@ -79,7 +80,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          AxiosService
+          ajax
             .post("/api/user/signup", this[formName])
             .then((res) => {
               console.log(res);

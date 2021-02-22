@@ -1,6 +1,6 @@
 import { createStore } from 'vuex';
-import loginModule from '@/store/modules/login';
-import projectModule from '@/store/modules/project';
+import loginModule from './modules/login';
+import projectModule from './modules/project';
 
 export default createStore ({
   state: {

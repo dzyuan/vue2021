@@ -1,31 +1,40 @@
 <template>
   <el-container id="app">
-    <el-header v-if= 'loggedIn' style="text-align: right; font-size: 12px">
+    <el-header
+      v-show="this.$store.state.login.userInfo.userId"
+      style="text-align: right; font-size: 12px"
+    >
       <TopNav />
     </el-header>
 
     <el-main>
+      
       <div class="main"><router-view></router-view></div>
+      <div>{{ this.$store.state.login }}</div>
     </el-main>
     <el-footer>
       <FooterBar />
     </el-footer>
   </el-container>
-
-
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
-
+// import mapActions from "vuex";
 import TopNav from "./views/TopNav.vue";
 import FooterBar from "./views/FooterBar.vue";
 export default {
   name: "app",
   components: {
-    
     TopNav,
     FooterBar,
+  },
+  mounted() {
+    // this.getUserInfo();
+  },
+  methods: {
+   
+
+    // ...mapActions(["setUserInfo"]),
   },
 };
 </script>
@@ -37,7 +46,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
- 
+
   height: 100%;
 }
 
@@ -55,10 +64,9 @@ export default {
   position: absolute;
   bottom: 0;
   width: 100%;
-  
 }
 .el-main {
-  background-color:#fff;
+  background-color: #fff;
   color: #333;
 
   padding-bottom: 100px;

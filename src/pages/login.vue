@@ -7,12 +7,12 @@
 </template>
 
 <script>
-// import Vue from 'vue'
-import axios from 'axios'
-// import vueaxios from 'vue-axios'
+
+import ajax from '../service/ajax';
+
 import authForm from '@/components/authForm'
 import { saveUserData } from '@/utils'
-// Vue.use(vueaxios, axios)
+
 export default {
   components: {
     authForm
@@ -28,41 +28,26 @@ export default {
   },
 
   methods: {
-    /* async onLogin(formLogin) {
-      try {
-        let response = await this.$auth.loginWith('local', { data: formLogin })
-        this.$auth.setUser(user)
-        console.log(response)
-      } catch (err) {
-        console.log(err)
-      }
-    } */
-
+    
     onLogin(formLogin) {
-      axios
-        .post('http://localhost:3000/api/user/login', formLogin)
+      ajax
+        .post('/api/user/login', formLogin)
         .then((res) => {
           console.log(res)
           this.feedback = res.data
           if (this.feedback.token) {
             saveUserData(this.feedback)
             //localStorage.setItem('authdata', JSON.stringify(this.feedback))
-            this.$store.dispatch('setLoggedIn', true)
-            this.$store.dispatch('setUsername', this.feedback.username)
-
-            this.$store.dispatch('setUserType', this.feedback.userType)
-
-            this.$store.dispatch('setToken', this.feedback.token)
-
-            this.$store.dispatch('setUserId', this.feedback.userId)
+            this.$store.dispatch('setUserInfo', this.feedback)            
 
             const timeToLogout = this.feedback.expiresIn * 1000
 
             console.log(timeToLogout)
 
             this.$store.dispatch('setLogoutTimer', timeToLogout)
-            console.log('转到首页!')
             this.$router.push('/')
+            console.log('转到首页!')
+     
           }
         })
       console.log(this.feedback)

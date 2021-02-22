@@ -33,12 +33,26 @@ export const getUserFromCookie = req => {
     return { token, username, userId, userType, expiresIn }
 }
 
+export const getUserFromLocalStorage = () => {
+    if (localStorage) {
+      const token = localStorage.getItem("token");
+      const expiresIn = localStorage.getItem("expiresIn");
+      const username = localStorage.getItem("username");      
+      const userId = localStorage.getItem("userId");
+      const userType = localStorage.getItem("userType");
+  
+      return { token, username, userId, userType, expiresIn };
+    }
+  };
+
+
 export const clearAuthData = () => {
-    Cookie.remove('token');
-    Cookie.remove('username');
-    Cookie.remove('userType');
-    Cookie.remove('userId');
-    Cookie.remove('expiresIn');
+   
+    localStorage.removeItem("token");
+    localStorage.removeItem("expiresIn");
+    localStorage.removeItem("username");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userType");
 
 };
 
