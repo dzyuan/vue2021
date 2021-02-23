@@ -12,7 +12,7 @@ import projectlist from '../pages/project/list.vue';
 import addproject from '../pages/project/add.vue';
 import login from '../pages/login.vue';
 import reg from '../pages/reg.vue';
-import {  getUserFromLocalStorage } from '@/utils';
+
 const routes = [
   { path: '/', name: 'Home', component: Home },
   { path: '/about', component: about },
@@ -35,27 +35,13 @@ const router = createRouter({
 });
 router.beforeEach((to, from, next) => {
   
-    const userInfo =getUserFromLocalStorage();
-
-  if (!userInfo) {
-    return;
-  } else if (!userInfo.token || Date.now() > userInfo.expiresIn) {
-    store.dispatch("clearUserInfo");
-  } else {
-    store.dispatch("setUserInfo", userInfo);
-    const timeToLogout = userInfo.expiresIn - Date.now();
-    store.dispatch("setLogoutTimer", timeToLogout);
-  }
-
-
-
-  if ((store.state.login.userInfo.userId)) {
-    next();
-  }
-  else {
+  if ((to.name !=='login' && !store.state.login.userInfo.userId)) {
     next({ name: 'login' });
-
+    
+  }else{
+    next()
   }
+  
 });
 
 export default router;

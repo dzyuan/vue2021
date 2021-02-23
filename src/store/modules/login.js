@@ -1,5 +1,5 @@
-import { clearAuthData} from '@/utils';
-import router from '../../router';
+import { clearAuthData} from '../../utils';
+
 const state = () => ({
   userInfo:{},
   
@@ -32,13 +32,9 @@ const actions = {
 
 
 
-  async clearUserInfo({ commit }) {
+ clearUserInfo({ commit }) {
     clearAuthData();
-    commit('SET_USERINFO', '');
-  
-    await router.push('/login');
-
-
+    commit('SET_USERINFO', {});
   }
 };
 

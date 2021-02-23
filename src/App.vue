@@ -8,9 +8,7 @@
     </el-header>
 
     <el-main>
-      
       <div class="main"><router-view></router-view></div>
-      <div>{{ this.$store.state.login }}</div>
     </el-main>
     <el-footer>
       <FooterBar />
@@ -22,6 +20,7 @@
 // import mapActions from "vuex";
 import TopNav from "./views/TopNav.vue";
 import FooterBar from "./views/FooterBar.vue";
+import {  getUserFromLocalStorage } from './utils';
 export default {
   name: "app",
   components: {
@@ -29,12 +28,20 @@ export default {
     FooterBar,
   },
   mounted() {
-    // this.getUserInfo();
-  },
+    this.getUserInfo()
+    },
   methods: {
-   
-
-    // ...mapActions(["setUserInfo"]),
+    getUserInfo() {
+      let userInfo = getUserFromLocalStorage();
+      console.log(userInfo);
+      if (!userInfo.token || Date.now() > userInfo.expiresIn) {
+        this.$store.dispatch("clearUserInfo");
+      } else {
+        this.$store.dispatch("setUserInfo", userInfo);
+        const timeToLogout = userInfo.expiresIn - Date.now();
+        this.$store.dispatch("setLogoutTimer", timeToLogout);
+      }
+    },
   },
 };
 </script>

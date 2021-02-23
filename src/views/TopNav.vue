@@ -60,7 +60,7 @@
         <el-button class="el-icon-user" type="primary"  round>{{this.$store.state.login.userInfo.username}}</el-button>
         </el-menu-item ></el-col>
       <el-col :span="2">
-        <el-button class="el-icon-s-custom" type="warning" round  @click="onLogout">退出登录</el-button>
+        <el-button class="el-icon-s-custom" type="warning" round >退出登录</el-button>
       </el-col>
         </el-row>
     </el-menu>
@@ -81,7 +81,7 @@ export default {
       console.log(key, keyPath);
     },
     onLogout(){
-      this.$store.dispatch("clearUserInfo")
+      // this.$store.dispatch("clearUserInfo")
     }
   },
 };

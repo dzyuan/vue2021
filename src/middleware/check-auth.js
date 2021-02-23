@@ -1,9 +1,6 @@
-import {  getUserFromLocalStorage } from '@/utils';
-export default function ({ store}) {
-   
-
+import {  getUserFromLocalStorage } from '../utils';
+export default function ({ store}) { 
     const userInfo =getUserFromLocalStorage();
-
   if (!userInfo) {
     return;
   } else if (!userInfo.token || Date.now() > userInfo.expiresIn) {
