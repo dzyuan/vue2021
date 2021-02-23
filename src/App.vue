@@ -33,7 +33,7 @@ export default {
   methods: {
     getUserInfo() {
       let userInfo = getUserFromLocalStorage();
-      console.log(userInfo);
+      // console.log(userInfo);
       if (!userInfo.token || Date.now() > userInfo.expiresIn) {
         this.$store.dispatch("clearUserInfo");
       } else {

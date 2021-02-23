@@ -128,7 +128,7 @@
 </template>
 
 <script>
- import axios from 'axios'
+ import ajax from "../../service/ajax";
 
 
 export default {
@@ -303,10 +303,13 @@ export default {
       return this.$store.getters.userId
     }
   },
+   mounted() {
+     //console.log( this.$store.state.login.userInfo.token)
+    },
   methods: {
     onSubmit(formProject) {
-      axios
-      .post('http://localhost:3000/api/project', formProject)
+      ajax
+      .post('api/project', formProject)
         .then((res) => {
           this.feedback = res.data
           console.log(this.feedback)

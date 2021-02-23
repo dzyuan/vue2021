@@ -10,6 +10,7 @@ import bim from '../pages/bim.vue';
 import player from '../pages/player.vue';
 import projectlist from '../pages/project/list.vue';
 import addproject from '../pages/project/add.vue';
+import projectdetails from '../pages/project/details';
 import login from '../pages/login.vue';
 import reg from '../pages/reg.vue';
 
@@ -22,8 +23,9 @@ const routes = [
   { path: '/keji', name: 'keji', component: keji },
   { path: '/zhishi', name: 'zhishi', component: zhishi },
   { path: '/player', name: 'player', component: player },
-  { path: '/projectlist', name: 'projectlist', component: projectlist },
-  { path: '/addproject', name: 'addproject', component: addproject },
+  { path: '/project/list', name: 'projectlist', component: projectlist },
+  { path: '/project/:id/details', name: 'projectdetails', component: projectdetails },
+  { path: '/project/add', name: 'addproject', component: addproject },
   { path: '/login', name: 'login', component: login },
   { path: '/reg', name: 'reg', component: reg },
 ];

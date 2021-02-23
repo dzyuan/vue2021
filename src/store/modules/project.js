@@ -1,5 +1,5 @@
 const state = () => ({
-  projects: {},
+  projects: [],
   project: {}
 
 });
@@ -19,10 +19,10 @@ const mutations = {
 };
 
 const actions = {
-  async setProjects({ commit }, apiUrl) {
-    const { projects } = await this.$axios.$get(apiUrl);
+   setProjects({ commit }, projects) {    
     commit('SET_PROJECTS', projects);
   },
+
   async setProject({ commit },  params) {
     const  project = await this.$axios.$get( `http://localhost:3000/api/project/${params.id}`);
     console.log(project);
