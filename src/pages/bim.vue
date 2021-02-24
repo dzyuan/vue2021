@@ -6,40 +6,28 @@
       <img src="..\..\public\obd.jpg" class="image">
       <div style="padding: 14px;" class="bg-purple-dark">
         <span><el-link href="/player" >OBD教学视频</el-link></span>
-        <div class="bottom clearfix">
-          <time class="time">{{ currentDate }}</time>
-          <el-button type="text" class="button">操作按钮</el-button>
-        </div>
+       
       </div>
     </el-card></el-col>
   <el-col :span="6"><el-card :body-style="{ padding: '0px' }">
       <img src="..\..\public\OPM.jpg" class="image">
       <div style="padding: 14px;" class="bg-purple-dark">
         <span><el-link href="/player" >OPM教学视频</el-link></span>
-        <div class="bottom clearfix">
-          <time class="time">{{ currentDate }}</time>
-          <el-button type="text" class="button">操作按钮</el-button>
-        </div>
+       
       </div>
     </el-card></el-col>
   <el-col :span="6"><el-card :body-style="{ padding: '0px' }">
       <img src="..\..\public\brcm.jpg" class="image">
       <div style="padding: 14px;" class="bg-purple-dark">
         <span><el-link href="/player" >BRCM教学视频</el-link></span>
-        <div class="bottom clearfix">
-          <time class="time">{{ currentDate }}</time>
-          <el-button type="text" class="button">操作按钮</el-button>
-        </div>
+        
       </div>
     </el-card></el-col>
   <el-col :span="6"><el-card :body-style="{ padding: '0px' }">
       <img src="..\..\public\lumenrt.jpg" class="image">
       <div style="padding: 14px;" class="bg-purple-dark">
         <span><el-link href="/player" >LUMENRT教学视频</el-link></span>
-        <div class="bottom clearfix">
-          <time class="time">{{ currentDate }}</time>
-          <el-button type="text" class="button">操作按钮</el-button>
-        </div>
+        
       </div>
     </el-card></el-col>
 

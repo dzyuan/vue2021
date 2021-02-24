@@ -4,12 +4,16 @@ import Home from '../pages/home.vue';
 import about from '../pages/about.vue';
 import keji from '../pages/keji.vue';
 import zhishi from '../pages/zhishi.vue';
-import chengguo from '../pages/chengguo.vue';
+//import chengguo from '../pages/chengguo.vue';
 import web from '../pages/web.vue';
 import web3d from '../pages/web3d.vue';
 import bim from '../pages/bim.vue';
 import player from '../pages/player.vue';
 import projectlist from '../pages/project/list.vue';
+import gongfaliblist from '../pages/gongfalib/list.vue';
+import addgongfalib from '../pages/gongfalib/add.vue';
+import editgongfalib from '../pages/gongfalib/edit.vue';
+import gongfalibcontent from '../pages/gongfalib/content.vue';
 import addproject from '../pages/project/add.vue';
 import projectdetails from '../pages/project/details';
 import editproject from '../pages/project/edit';
@@ -24,7 +28,11 @@ const routes = [
   { path: '/bim', name: 'bim', component: bim },
   { path: '/keji', name: 'keji', component: keji },
   { path: '/zhishi', name: 'zhishi', component: zhishi },
-  { path: '/chengguo', name: 'chengguo', component: chengguo },
+  //{ path: '/chengguo', name: 'chengguo', component: chengguo },
+  { path: '/gongfalib', name: 'gongfalist', component: gongfaliblist },
+  { path: '/gongfalib/add', name: 'addgongfa', component: addgongfalib },
+  { path: '/gongfalib/:id/edit', name: 'editgongfa', component: editgongfalib },
+  { path: '/gongfalib/:id/content', name: 'gongfacontent', component: gongfalibcontent },
   { path: '/player', name: 'player', component: player },
   { path: '/project/list', name: 'projectlist', component: projectlist },
   { path: '/project/:id/details', name: 'projectdetails', component: projectdetails },

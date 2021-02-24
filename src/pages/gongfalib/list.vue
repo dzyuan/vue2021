@@ -47,11 +47,11 @@
       </template>
     </el-table-column>
   </el-table>
-  <span><router-link to="/project/add">新增工法</router-link></span>
+  <span><router-link to="/gongfalib/add">新增工法</router-link></span>
 </template>
 
 <script>
-import ajax from "../service/ajax";
+import ajax from "../../service/ajax";
 
 export default {
   data() {
@@ -79,13 +79,13 @@ export default {
     },
 
     editProject(id) {
-      this.$router.push({ path: `/project/${id}/edit` });
+      this.$router.push({ path: `/gongfalib/${id}/edit` });
     },
     viewProject(id) {
-      this.$router.push({ path: `/project/${id}/details` });
+      this.$router.push({ path: `/gongfalib/${id}/details` });
     },
     deleteProject(id) {
-      ajax.delete(`http://localhost:3000/api/project/${id}`)
+      ajax.delete(`api/project/${id}`)
         .then((res) => {
           this.feedback = res.data;
           console.log(this.feedback);

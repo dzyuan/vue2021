@@ -1,47 +1,83 @@
 <template>
-  <el-row :gutter="20">
-    <el-col :span="2">
-      <router-link class="el-icon-s-home" to="/">home</router-link>
-    </el-col>
-    <el-col :span="2">
-      <router-link to="/keji">科技创新</router-link>
-    </el-col>
-    <el-col :span="2"> <router-link to="/zhishi">知识库</router-link> </el-col>
-    <el-col :span="2"> <router-link to="/chengguo">成果库</router-link> </el-col>
-    <el-col :span="2">
-      <router-link to="/bim">BIM培训</router-link>
-    </el-col>
-    <el-col :span="2"><router-link to="/web">网站资源</router-link> </el-col>
-    <el-col :span="2">
-      <router-link to="/about">关于我们</router-link>
-    </el-col>
-
-    <el-col :span="2">
+  <el-row :gutter="20"  class="nav">
+    <el-col :span="16">
       <el-menu
         :default-active="activeIndex"
         class="el-menu-demo"
         mode="horizontal"
         @select="handleSelect"
-        background-color="#FFF"
+        background-color="#525288"
+          text-color="#fff"
       >
-        <el-submenu index="1">
+        <el-menu-item index="1"
+          ><router-link class="el-icon-s-home" to="/"
+            ></router-link
+          ></el-menu-item
+        >
+        <el-submenu index="2">
+          <template #title
+            ><router-link to="/keji">科技创新</router-link></template
+          >
+          <el-menu-item index="2-1">
+            <router-link to="/project/list">立项管理</router-link></el-menu-item
+          >
+          <el-menu-item index="2-2">
+            <router-link to="/chengguo">知识产权库</router-link></el-menu-item
+          >
+          <el-menu-item index="2-3">
+            <router-link to="/chengguo">论文库</router-link>
+          </el-menu-item>
+        </el-submenu>
+        <el-submenu index="3">
+          <template #title>创新成果库</template>
+          <el-menu-item index="3-1">
+            <router-link to="/gongfalib">工法库</router-link></el-menu-item
+          >
+          <el-menu-item index="3-2">
+            <router-link to="/chengguo">知识产权库</router-link></el-menu-item
+          >
+          <el-menu-item index="3-3">
+            <router-link to="/chengguo">论文库</router-link>
+          </el-menu-item>
+        </el-submenu>
+        <el-submenu index="4">
+          <template #title
+            ><router-link to="/zhishi">技术知识库</router-link>
+          </template>
+          <el-menu-item index="4-1">
+            <router-link to="/chengguo">施工组织库</router-link></el-menu-item
+          >
+          <el-menu-item index="4-2">
+            <router-link to="/chengguo">方案库</router-link></el-menu-item
+          >
+          <el-menu-item index="4-3">
+            <router-link to="/chengguo">规程规范库</router-link>
+          </el-menu-item>
+        </el-submenu>
+        <el-menu-item index="5">
+          <router-link to="/bim">BIM培训</router-link></el-menu-item
+        >
+        <el-menu-item index="6"
+          ><router-link to="/web">网站资源</router-link></el-menu-item
+        >
+        <el-submenu index="7">
           <template #title>web3d试验台</template>
-          <el-menu-item index="1-1"
-            ><el-link
+          <el-menu-item index="7-1"
+            ><el-link  :underline="false" type="success"
               href="http://10.162.98.161:8900/rebeng/rebeng.html"
               target="blank"
               >热泵</el-link
             ></el-menu-item
           >
-          <el-menu-item index="1-2"
-            ><el-link
+          <el-menu-item index="7-2"
+            ><el-link  :underline="false" type="success"
               href="http://10.162.98.161:8900/my_test_app/my_test_app.html"
               target="blank"
               >方盒</el-link
             ></el-menu-item
           >
-          <el-menu-item index="1-3">
-            <el-link
+          <el-menu-item index="7-3">
+            <el-link :underline="false" type="success"
               href="http://10.162.98.161:8900/parametric_models/index.html"
               target="blank"
               >展示</el-link
@@ -89,6 +125,9 @@ export default {
 
 
 <style >
+.nav{
+ background:#525288
+}
 .el-row {
   margin-bottom: 20px;
 }
@@ -98,4 +137,23 @@ export default {
 .bg-purple-dark {
   background: #99a9bf;
 }
+a {
+
+    text-decoration: none;
+}
+.router-link-active {
+    text-decoration: none;
+    color: #fff;
+}
+a:visited
+{text-decoration:none;
+color: #fff;}
+a:hover   {color:red;}
+a:active
+{text-decoration:none;
+
+color: #fff;}
+el-link
+{text-decoration:none;
+color: #fff;}
 </style>

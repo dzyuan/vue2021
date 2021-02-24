@@ -52,14 +52,14 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #e5edf5;
 
   height: 100%;
 }
 
 .el-header {
   background-color: #fff;
-  color: #333;
+  color: rgb(197, 189, 189);
   line-height: 60px;
 }
 .el-footer {
