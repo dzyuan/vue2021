@@ -23,8 +23,8 @@ const actions = {
     commit('SET_PROJECTS', projects);
   },
 
-  async setProject({ commit },  params) {
-    const  project = await this.$axios.$get( `http://localhost:3000/api/project/${params.id}`);
+  async setProject({ commit }, project) {
+    
     console.log(project);
     commit('SET_PROJECT', project);
   },

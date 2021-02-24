@@ -10,7 +10,7 @@
     <el-main>
       <div class="main"><router-view></router-view></div>
     </el-main>
-    <el-footer>
+    <el-footer  v-show="this.$store.state.login.userInfo.userId">
       <FooterBar />
     </el-footer>
   </el-container>
@@ -75,7 +75,7 @@ export default {
 .el-main {
   background-color: #fff;
   color: #333;
-
+  height: 100%;
   padding-bottom: 100px;
 }
 
@@ -86,5 +86,6 @@ body {
   padding: 0;
   min-height: 100%;
   position: relative;
+  background-color: dodgerblue;
 }
 </style>

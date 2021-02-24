@@ -1,37 +1,38 @@
 <template>
   <el-table :data="projects" style="width: 100%" >
     <el-table-column label="序号" type="index" width="50"></el-table-column>
-    <el-table-column prop="name" label="项目名称" width="200"></el-table-column>
+    <el-table-column prop="name" label="工法名称" width="200"></el-table-column>
     <el-table-column
       prop="department"
-      label="承担单位"
+      label="编写单位"
       width="120"
     ></el-table-column>
-    <el-table-column prop="leader" label="负责人" width="80"></el-table-column>
-    <el-table-column
-      prop="startDate"
-      label="开始时间"
-      width="120"
-      :formatter="dateFormat"
-    ></el-table-column>
+    <el-table-column prop="writer" label="编写人" width="80"></el-table-column>
     <el-table-column
       prop="completeDate"
-      label="结束时间"
+      label="编制时间"
       width="120"
       :formatter="dateFormat"
     ></el-table-column>
+    
     <el-table-column
       prop="techField"
       label="技术领域"
       width="150"
       :formatter="fieldFormat"
     ></el-table-column>
-    <el-table-column prop="innovation" label="创新点"></el-table-column>
+    <el-table-column prop="innovation" label="工法级别"></el-table-column>
+    <el-table-column
+      prop="completeDate"
+      label="内容摘要"
+      width="120"
+      :formatter="dateFormat"
+    ></el-table-column>
     <el-table-column fixed="right" label="操作" width="150">
       <template  #default="scope">
       <div>
         <el-button @click="viewProject(scope.row._id)" type="text" size="small"
-          >查看</el-button
+          >查看工法</el-button
         >
         <el-button @click="editProject(scope.row._id)" type="text" size="small"
           >编辑</el-button
@@ -46,11 +47,11 @@
       </template>
     </el-table-column>
   </el-table>
-  <span><router-link to="/project/add">新增立项</router-link></span>
+  <span><router-link to="/project/add">新增工法</router-link></span>
 </template>
 
 <script>
-import ajax from "../../service/ajax";
+import ajax from "../service/ajax";
 
 export default {
   data() {

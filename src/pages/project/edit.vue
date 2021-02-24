@@ -128,6 +128,10 @@
 </template>
 
 <script>
+import ajax from "../../service/ajax";
+
+
+
 export default {
   data() {
     return {
@@ -300,18 +304,34 @@ export default {
       }
     }
   },
-  async fetch({ store, params }) {
-    await store.dispatch('setProject', params)
-  },
+ 
+mounted() {
+    this.getProject(this.$route.params.id)
+     console.log('表格数据已获取')
+     //this.formProject = this.project
+     //console.log("this.formProject"+this.formProject);
+    },
+ 
+
   computed: {
     project() {
       return this.$store.getters.project
     }
   },
   created() {
-    this.formProject = this.project
+   
   },
   methods: {
+ getProject(id) {
+      ajax.get(`api/project/${id}`).then((res) => {
+       // console.log("res.data"+res.data);
+         this.formProject = res.data
+        //this.$store.dispatch("setProject", res.data);
+      });
+    },
+
+
+
     onSubmit(formProject) {      
       
       console.log('edit'+formProject)

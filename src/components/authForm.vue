@@ -1,15 +1,21 @@
 <template>
-  <el-form ref="formLogin" :inline="false" :model="formLogin" :rules="rules">
+
+<el-card shadow="always" width="50%">
+      
+    
+
+  <el-form ref="formLogin" :inline="false" :model="formLogin" :rules="rules"  >
       <el-form-item label="用户名" prop="username">
-        <el-input v-model="formLogin.username" placeholder="用户名"></el-input>
+        <el-input v-model="formLogin.username" placeholder="用户名"   maxlength="20"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input v-model="formLogin.password" placeholder="密码"></el-input>
+        <el-input v-model="formLogin.password" placeholder="密码"  maxlength="20" ></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit(formLogin)">{{buttonText}}</el-button>
       </el-form-item>
     </el-form>
+    </el-card>
 </template>
 
 <script>

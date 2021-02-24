@@ -159,6 +159,7 @@
 </template>
 
 <script>
+import ajax from "../../service/ajax";
 export default {
   data() {
     return {
@@ -192,9 +193,12 @@ export default {
       activeNames: ["1", "2", "3", "4"],
     };
   },
-  async fetch({ store, params }) {
-    await store.dispatch("setProject", params);
+
+  mounted() {
+    this.getProject(this.$route.params.id);
+    console.log("表格数据已获取");
   },
+
   computed: {
     project() {
       return this.$store.getters.project;
@@ -207,8 +211,14 @@ export default {
     },
   },
   methods: {
+    getProject(id) {
+      ajax.get(`api/project/${id}`).then((res) => {
+        console.log(res.data);
+        this.$store.dispatch("setProject", res.data);
+      });
+    },
 
- dateFormat(value) {
+    dateFormat(value) {
       if (!value) return "";
       value = value.toString();
       return value.substring(0, 10);
@@ -253,13 +263,6 @@ export default {
         return source.join(" , ");
       }
     },
-
-
-
-
-
-
-
 
     handleChange(val) {
       console.log(val);
@@ -336,9 +339,7 @@ export default {
         });
     },
   },
-  filters: {
-   
-  },
+  filters: {},
 };
 </script>
 
