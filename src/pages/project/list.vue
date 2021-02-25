@@ -1,5 +1,5 @@
 <template>
-  <el-table :data="projects" style="width: 100%" >
+  <el-table :data="projects" style="width: 100%">
     <el-table-column label="序号" type="index" width="50"></el-table-column>
     <el-table-column prop="name" label="项目名称" width="200"></el-table-column>
     <el-table-column
@@ -28,21 +28,27 @@
     ></el-table-column>
     <el-table-column prop="innovation" label="创新点"></el-table-column>
     <el-table-column fixed="right" label="操作" width="150">
-      <template  #default="scope">
-      <div>
-        <el-button @click="viewProject(scope.row._id)" type="text" size="small"
-          >查看</el-button
-        >
-        <el-button @click="editProject(scope.row._id)" type="text" size="small"
-          >编辑</el-button
-        >
-        <el-button
-          @click="deleteProject(scope.row._id)"
-          type="text"
-          size="small"
-          >删除</el-button
-        >
-      </div>
+      <template #default="scope">
+        <div>
+          <el-button
+            @click="viewProject(scope.row._id)"
+            type="text"
+            size="small"
+            >查看</el-button
+          >
+          <el-button
+            @click="editProject(scope.row._id)"
+            type="text"
+            size="small"
+            >编辑</el-button
+          >
+          <el-button
+            @click="deleteProject(scope.row._id)"
+            type="text"
+            size="small"
+            >删除</el-button
+          >
+        </div>
       </template>
     </el-table-column>
   </el-table>
@@ -55,7 +61,7 @@ import ajax from "../../service/ajax";
 export default {
   data() {
     return {
-      tableData: [],
+      // projects: [],
     };
   },
   computed: {
@@ -64,16 +70,19 @@ export default {
     },
   },
   mounted() {
-    this.getProjects()
-     console.log('表格数据已获取')
-    },
+    this.getProjects();
+    console.log("表格数据已获取");
+  },
   methods: {
     getProjects() {
       ajax
         .get("api/project")
         .then((res) => {
           // console.log(res.data.projects)
-          this.$store.dispatch("setProjects", res.data.projects)})
+
+          this.$store.dispatch("setProjects", res.data.projects);
+          // console.log(this.$store.state)
+        })
         .catch((err) => console.log(err));
     },
 
@@ -84,7 +93,8 @@ export default {
       this.$router.push({ path: `/project/${id}/details` });
     },
     deleteProject(id) {
-      ajax.delete(`http://localhost:3000/api/project/${id}`)
+      ajax
+        .delete(`http://localhost:3000/api/project/${id}`)
         .then((res) => {
           this.feedback = res.data;
           console.log(this.feedback);

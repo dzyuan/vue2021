@@ -34,7 +34,7 @@ const routes = [
   { path: '/gongfalib/:id/edit', name: 'editgongfalib', component: editgongfalib },
   { path: '/gongfalib/:id/content', name: 'gongfalibcontent', component: gongfalibcontent },
   { path: '/player', name: 'player', component: player },
-  { path: '/project/list', name: 'projectlist', component: projectlist },
+  { path: '/project', name: 'projectlist', component: projectlist },
   { path: '/project/:id/details', name: 'projectdetails', component: projectdetails },
   { path: '/project/:id/edit', name: 'editproject', component: editproject },
   { path: '/project/add', name: 'addproject', component: addproject },

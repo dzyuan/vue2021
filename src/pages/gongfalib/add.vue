@@ -25,7 +25,7 @@
         </el-col>
         <el-col :span="8">
           <el-form-item label="编写人">
-            <el-input v-model="formProject.leader" placeholder="xxx"></el-input>
+            <el-input v-model="formProject.writer" placeholder="xxx"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -67,8 +67,12 @@
         </el-col>
         <el-col :span="8">
           <el-form-item label="工法分类">
-              <br />
-            <el-select v-model="formProject.techField" placeholder="请选择" class="ddlWidth">
+            <br />
+            <el-select
+              v-model="formProject.techField"
+              placeholder="请选择"
+              class="ddlWidth"
+            >
               <el-option-group
                 v-for="group in options_techField"
                 :key="group.label_techField"
@@ -93,7 +97,7 @@
             <el-input
               type="textarea"
               :rows="3"
-              v-model="formProject.innovation"
+              v-model="formProject.summary"
               placeholder="xxx"
             ></el-input>
           </el-form-item>
@@ -101,7 +105,6 @@
       </el-row>
 
       <el-form-item>
-        
         <el-button type="primary" @click="onSubmit(formProject)"
           >保存</el-button
         >
@@ -109,28 +112,28 @@
     </el-form>
 
     <el-upload
-          class="upload-demo"
-          ref="upload"
-          action="http://10.162.98.161:3000/api/upload"
-          :on-preview="handlePreview"
-          :on-remove="handleRemove"
-          :file-list="fileList"
-          :auto-upload="false"
-        >
-          <template #trigger>
-            <el-button size="small" type="primary">选取文件</el-button>
-          </template>
-          <el-button
-            style="margin-left: 10px"
-            size="small"
-            type="success"
-            @click="submitUpload"
-            >上传到服务器</el-button
-          >
-          <template #tip>
-            <div class="el-upload__tip">只能上传 doc 文件，且不超过 5Mb</div>
-          </template>
-        </el-upload>
+      class="upload-demo"
+      ref="upload"
+      action="http://localhost:3000/api/upload"
+      :on-preview="handlePreview"
+      :on-remove="handleRemove"
+      :file-list="fileList"
+      :auto-upload="false"
+    >
+      <template #trigger>
+        <el-button size="small" type="primary">选取文件</el-button>
+      </template>
+      <el-button
+        style="margin-left: 10px"
+        size="small"
+        type="success"
+        @click="submitUpload"
+        >上传到服务器</el-button
+      >
+      <template #tip>
+        <div class="el-upload__tip">只能上传 doc 文件，且不超过 5Mb</div>
+      </template>
+    </el-upload>
   </div>
 </template>
 
@@ -144,16 +147,10 @@ export default {
         year: "2020",
         name: "科技创新管理系统",
         department: "技术中心",
-        leader: "豆志远",
-        startDate: "",
-        completeDate: "",
-        budget: "20",
+        writer: "豆志远",
+        class: "",
         techField: "",
-        techSource: "",
-        purpose: "123",
-        implementation: "456",
-        technology: "789",
-        innovation: "12345",
+        summary: "123",
       },
       options_year: [
         {
@@ -167,7 +164,8 @@ export default {
         {
           value_year: "2018",
           label_year: "2018",
-        },{
+        },
+        {
           value_year: "2019",
           label_year: "2019",
         },
@@ -194,7 +192,7 @@ export default {
       ],
       year: "",
 
- options_class: [
+      options_class: [
         {
           value_class: "企业级",
           label_class: "企业级",
@@ -210,9 +208,6 @@ export default {
       ],
       class: "",
 
-
-
-
       options_techField: [
         {
           label_techField: "河南省工法",
@@ -227,7 +222,7 @@ export default {
             },
             {
               value_techField: "工业安装工程",
-              label: "工业安装工程",
+              label_techField: "工业安装工程",
             },
           ],
         },
@@ -235,15 +230,15 @@ export default {
           label_techField: "电建工法",
           options_techField: [
             {
-              value: "水电与新能源",
+              value_techField: "水电与新能源",
               label_techField: "水电与新能源",
             },
             {
-              value: "基础设施",
+              value_techField: "基础设施",
               label_techField: "基础设施",
             },
             {
-              value: "火电与输变电",
+              value_techField: "火电与输变电",
               label_techField: "火电与输变电",
             },
           ],
@@ -281,7 +276,7 @@ export default {
         .post("api/gongfalib", formProject)
         .then((res) => {
           this.feedback = res.data;
-          console.log(this.feedback);
+          console.log("this.feedback=" + this.feedback);
           this.$router.push("/gongfalib");
         })
         .catch((error) => {

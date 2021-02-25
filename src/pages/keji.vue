@@ -4,7 +4,7 @@
       ><el-card :body-style="{ padding: '0px' }">
         <img src="..\..\public\lixiang.jpg" class="image" />
         <div style="padding: 14px" class="bg-purple-dark">
-          <span><router-link to="/project/list">立项管理</router-link></span>
+          <span><router-link to="/project">立项管理</router-link></span>
         </div>
       </el-card></el-col
     >

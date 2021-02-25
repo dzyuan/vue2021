@@ -44,10 +44,10 @@
             <router-link to="/gongfalib">工法库</router-link></el-menu-item
           >
           <el-menu-item index="3-2">
-            <router-link to="/chengguo">知识产权库</router-link></el-menu-item
+            <router-link to="/gongfalib">知识产权库</router-link></el-menu-item
           >
           <el-menu-item index="3-3">
-            <router-link to="/chengguo">论文库</router-link>
+            <router-link to="/gongfalib">论文库</router-link>
           </el-menu-item>
         </el-submenu>
         <el-submenu index="4">
@@ -55,13 +55,13 @@
             ><router-link to="/zhishi">技术知识库</router-link>
           </template>
           <el-menu-item index="4-1">
-            <router-link to="/chengguo">施工组织设计</router-link></el-menu-item
+            <router-link to="/zhishi">施工组织设计</router-link></el-menu-item
           >
           <el-menu-item index="4-2">
-            <router-link to="/chengguo">施工方案库</router-link></el-menu-item
+            <router-link to="/zhishi">施工方案库</router-link></el-menu-item
           >
           <el-menu-item index="4-3">
-            <router-link to="/chengguo">规程规范库</router-link>
+            <router-link to="/zhishi">规程规范库</router-link>
           </el-menu-item>
         </el-submenu>
         <el-menu-item index="5">
