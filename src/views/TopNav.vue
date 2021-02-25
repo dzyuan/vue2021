@@ -1,5 +1,5 @@
 <template>
-  <el-row :gutter="20"  class="nav">
+  <el-row :gutter="20" class="nav">
     <el-col :span="16">
       <el-menu
         :default-active="activeIndex"
@@ -7,13 +7,11 @@
         mode="horizontal"
         @select="handleSelect"
         background-color="#525288"
-          text-color="#fff"
+        text-color="#fff"
       >
         <el-menu-item index="1"
-          ><router-link class="el-icon-s-home" to="/"
-            ></router-link
-          ></el-menu-item
-        >
+          ><router-link class="el-icon-s-home" to="/"></router-link
+        ></el-menu-item>
         <el-submenu index="2">
           <template #title
             ><router-link to="/keji">科技创新</router-link></template
@@ -22,11 +20,23 @@
             <router-link to="/project/list">立项管理</router-link></el-menu-item
           >
           <el-menu-item index="2-2">
-            <router-link to="/chengguo">知识产权库</router-link></el-menu-item
+            <router-link to="/keji">合同管理</router-link></el-menu-item
           >
           <el-menu-item index="2-3">
-            <router-link to="/chengguo">论文库</router-link>
+            <router-link to="/keji">实施管理</router-link></el-menu-item
+          >
+          <el-menu-item index="2-4">
+            <router-link to="/keji">知识产权</router-link>
           </el-menu-item>
+          <el-menu-item index="2-5">
+            <router-link to="/keji">论文管理</router-link></el-menu-item
+          >
+          <el-menu-item index="2-6">
+            <router-link to="/keji">工法管理</router-link></el-menu-item
+          >
+          <el-menu-item index="2-7">
+            <router-link to="/keji">管理评价</router-link></el-menu-item
+          >
         </el-submenu>
         <el-submenu index="3">
           <template #title>创新成果库</template>
@@ -45,10 +55,10 @@
             ><router-link to="/zhishi">技术知识库</router-link>
           </template>
           <el-menu-item index="4-1">
-            <router-link to="/chengguo">施工组织库</router-link></el-menu-item
+            <router-link to="/chengguo">施工组织设计</router-link></el-menu-item
           >
           <el-menu-item index="4-2">
-            <router-link to="/chengguo">方案库</router-link></el-menu-item
+            <router-link to="/chengguo">施工方案库</router-link></el-menu-item
           >
           <el-menu-item index="4-3">
             <router-link to="/chengguo">规程规范库</router-link>
@@ -63,21 +73,27 @@
         <el-submenu index="7">
           <template #title>web3d试验台</template>
           <el-menu-item index="7-1"
-            ><el-link  :underline="false" type="success"
+            ><el-link
+              :underline="false"
+              type="success"
               href="http://10.162.98.161:8900/rebeng/rebeng.html"
               target="blank"
               >热泵</el-link
             ></el-menu-item
           >
           <el-menu-item index="7-2"
-            ><el-link  :underline="false" type="success"
+            ><el-link
+              :underline="false"
+              type="success"
               href="http://10.162.98.161:8900/my_test_app/my_test_app.html"
               target="blank"
               >方盒</el-link
             ></el-menu-item
           >
           <el-menu-item index="7-3">
-            <el-link :underline="false" type="success"
+            <el-link
+              :underline="false"
+              type="success"
               href="http://10.162.98.161:8900/parametric_models/index.html"
               target="blank"
               >展示</el-link
@@ -125,8 +141,8 @@ export default {
 
 
 <style >
-.nav{
- background:#525288
+.nav {
+  background: #525288;
 }
 .el-row {
   margin-bottom: 20px;
@@ -138,22 +154,26 @@ export default {
   background: #99a9bf;
 }
 a {
-
-    text-decoration: none;
+  text-decoration: none;
 }
 .router-link-active {
-    text-decoration: none;
-    color: #fff;
+  text-decoration: none;
+  color: #fff;
 }
-a:visited
-{text-decoration:none;
-color: #fff;}
-a:hover   {color:red;}
-a:active
-{text-decoration:none;
+a:visited {
+  text-decoration: none;
+  color: #fff;
+}
+a:hover {
+  color: red;
+}
+a:active {
+  text-decoration: none;
 
-color: #fff;}
-el-link
-{text-decoration:none;
-color: #fff;}
+  color: #fff;
+}
+el-link {
+  text-decoration: none;
+  color: #fff;
+}
 </style>

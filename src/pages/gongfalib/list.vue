@@ -1,5 +1,5 @@
 <template>
-  <el-table :data="projects" style="width: 100%" >
+  <el-table :data="gongfalibs" style="width: 100%" >
     <el-table-column label="序号" type="index" width="50"></el-table-column>
     <el-table-column prop="name" label="工法名称" width="200"></el-table-column>
     <el-table-column
@@ -9,10 +9,10 @@
     ></el-table-column>
     <el-table-column prop="writer" label="编写人" width="80"></el-table-column>
     <el-table-column
-      prop="completeDate"
+      prop="year"
       label="编制时间"
       width="120"
-      :formatter="dateFormat"
+     
     ></el-table-column>
     
     <el-table-column
@@ -21,24 +21,24 @@
       width="150"
       :formatter="fieldFormat"
     ></el-table-column>
-    <el-table-column prop="innovation" label="工法级别"></el-table-column>
+    <el-table-column prop="class" label="工法级别"></el-table-column>
     <el-table-column
-      prop="completeDate"
+      prop="summary"
       label="内容摘要"
       width="120"
-      :formatter="dateFormat"
+      :formatter="fieldFormat"
     ></el-table-column>
     <el-table-column fixed="right" label="操作" width="150">
       <template  #default="scope">
       <div>
-        <el-button @click="viewProject(scope.row._id)" type="text" size="small"
+        <el-button @click="viewGongfalib(scope.row._id)" type="text" size="small"
           >查看工法</el-button
         >
-        <el-button @click="editProject(scope.row._id)" type="text" size="small"
+        <el-button @click="editGongfalib(scope.row._id)" type="text" size="small"
           >编辑</el-button
         >
         <el-button
-          @click="deleteProject(scope.row._id)"
+          @click="deleteGongfalib(scope.row._id)"
           type="text"
           size="small"
           >删除</el-button
@@ -60,32 +60,32 @@ export default {
     };
   },
   computed: {
-    projects() {
-      return this.$store.getters.projects;
+    gongfalibs() {
+      return this.$store.getters.gongfalibs;
     },
   },
   mounted() {
-    this.getProjects()
+    this.getGongfalibs()
      console.log('表格数据已获取')
     },
   methods: {
-    getProjects() {
+    getGongfalibs() {
       ajax
-        .get("api/project")
+        .get("api/gongfalib")
         .then((res) => {
-          // console.log(res.data.projects)
-          this.$store.dispatch("setProjects", res.data.projects)})
+          console.log(res.data.gongfalibs)
+          this.$store.dispatch("setGongfalibs", res.data.gongfalibs)})
         .catch((err) => console.log(err));
     },
 
-    editProject(id) {
+    editGongfalib(id) {
       this.$router.push({ path: `/gongfalib/${id}/edit` });
     },
-    viewProject(id) {
-      this.$router.push({ path: `/gongfalib/${id}/details` });
+    viewGongfalib(id) {
+      this.$router.push({ path: `/gongfalib/${id}/content` });
     },
-    deleteProject(id) {
-      ajax.delete(`api/project/${id}`)
+    deleteGongfalib(id) {
+      ajax.delete(`api/gongfalib/${id}`)
         .then((res) => {
           this.feedback = res.data;
           console.log(this.feedback);

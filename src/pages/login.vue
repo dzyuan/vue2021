@@ -10,7 +10,7 @@
       label-width="70px"
     >
       <img src="..\..\public\powerchinalogo.png" class="image" />
-      <H1 class="title">河南工程公司技术中心</H1>
+      <H1 class="title">河南工程科技创新管理系统</H1>
       <el-form-item label="用户名" prop="username">
         <el-input
           v-model="formLogin.username"
