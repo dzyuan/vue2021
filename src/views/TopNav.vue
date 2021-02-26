@@ -17,7 +17,7 @@
             ><router-link to="/keji">科技创新</router-link></template
           >
           <el-menu-item index="2-1">
-            <router-link to="/project/list">立项管理</router-link></el-menu-item
+            <router-link to="/project">立项管理</router-link></el-menu-item
           >
           <el-menu-item index="2-2">
             <router-link to="/keji">合同管理</router-link></el-menu-item

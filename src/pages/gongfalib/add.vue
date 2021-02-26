@@ -106,7 +106,7 @@
 
       <el-form-item>
         <el-button type="primary" @click="onSubmit(formProject)"
-          >保存</el-button
+          :disabled=ButtonDisabled>保存</el-button
         >
       </el-form-item>
     </el-form>
@@ -114,11 +114,12 @@
     <el-upload
       class="upload-demo"
       ref="upload"
-      action="http://localhost:3000/api/upload"
+      action="http://10.162.98.161:3000/api/upload"
       :on-preview="handlePreview"
       :on-remove="handleRemove"
       :file-list="fileList"
       :auto-upload="false"
+      v-if="uploadVisable"
     >
       <template #trigger>
         <el-button size="small" type="primary">选取文件</el-button>
@@ -143,6 +144,8 @@ import ajax from "../../service/ajax";
 export default {
   data() {
     return {
+      uploadVisable:false,
+      ButtonDisabled:false,
       formProject: {
         year: "2020",
         name: "科技创新管理系统",
@@ -262,7 +265,8 @@ export default {
   },
   methods: {
     submitUpload() {
-      this.$refs.upload.submit();
+      this.$refs.upload.submit()
+      this.$router.push("/gongfalib")
     },
     handleRemove(file, fileList) {
       console.log(file, fileList);
@@ -270,14 +274,18 @@ export default {
     handlePreview(file) {
       console.log(file);
     },
-
+  on-success(){
+    
+  }
     onSubmit(formProject) {
       ajax
         .post("api/gongfalib", formProject)
         .then((res) => {
           this.feedback = res.data;
+          this.ButtonDisabled=true;
+          this.uploadVisable=true;
           console.log("this.feedback=" + this.feedback);
-          this.$router.push("/gongfalib");
+         
         })
         .catch((error) => {
           console.log("err+" + error);

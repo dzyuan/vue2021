@@ -1,5 +1,5 @@
 <template>
-  <el-table :data="gongfalibs" style="width: 100%">
+ <el-table :data="gongfalibs" style="width: 100%">
     <el-table-column label="序号" type="index" width="50"></el-table-column>
     <el-table-column prop="name" label="工法名称" width="200"></el-table-column>
     <el-table-column
@@ -22,23 +22,23 @@
     ></el-table-column>
     <el-table-column prop="summary" label="内容摘要"></el-table-column>
     <el-table-column fixed="right" label="操作" width="150">
-      <template #default="{ row }">
+      <template #default="scope">
         <div>
-          <el-button @click="viewGongfalib(row._id)" type="text" size="small"
+          <el-button @click="viewGongfalib(scope.row._id)" type="text" size="small"
             >查看工法</el-button
           >
 
-          <el-button @click="editGongfalib(row._id)" type="text" size="small"
+          <el-button @click="editGongfalib(scope.row._id)" type="text" size="small"
             >编辑</el-button
           >
-          <el-button @click="deleteGongfalib(row._id)" type="text" size="small"
+          <el-button @click="deleteGongfalib(scope.row._id)" type="text" size="small"
             >删除</el-button
           >
         </div>
       </template>
     </el-table-column>
   </el-table>
-  
+   
   <span><router-link to="/gongfalib/add">新增工法</router-link></span>
 </template>
 
@@ -48,15 +48,15 @@ import ajax from "../../service/ajax";
 export default {
   data() {
     return {
-      // gongfalibs: [],
+      gongfalibs: [],
     };
   },
   computed: {
-    gongfalibs() {
-      return this.$store.getters.gongfalibs;
-    },
+    // gongfalibs() {
+    // return this.$store.getters.gongfalibs;
+    // },
   },
- beforeMount() {
+  mounted() {
     this.getGongfalibs();
     console.log("表格数据已获取");
   },
@@ -66,7 +66,7 @@ export default {
         .get("api/gongfalib")
         .then((res) => {
           // console.log(res.data.gongfalibs);
-          // this.gongfalibs = res.data.gongfalibs;
+          this.gongfalibs = res.data.gongfalibs;
           this.$store.dispatch("setGongfalibs", res.data.gongfalibs);
           // console.log("this.gongfalibs:" + this.gongfalibs);
           // console.log("this.$store.state:" + this.$store.state);
@@ -92,14 +92,23 @@ export default {
           console.log("err+" + error);
         });
     },
-    dateFormat: function (row, column) {
-      var date = row[column.property];
-      if (date == undefined) {
+
+    fieldFormat: function (row, column) {
+      var field = row[column.property];
+      if (field == undefined) {
         return "";
+      } else {
+        console.log("field:" + typeof field);
+        field.forEach(function (value) {
+          if (value.length > 1) {
+            console.log("value:" + value);
+            value.shift();
+            console.log("value:" + value);
+          }
+        });
+        return field.join(" , ");
       }
-      return date.substring(0, 10);
     },
-    
   },
 };
 </script>

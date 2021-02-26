@@ -1,11 +1,44 @@
 <template>
   <div>
-    <el-form ref="formProject" :inline="false" :model="formProject" :rules="rules">
+   <el-form
+      ref="formProject"
+      :inline="false"
+      :model="formProject"
+      :rules="rules"
+    >
       <el-row :gutter="20" align="middle" justify="space-between" type="flex">
         <el-col :span="8">
-          <el-form-item label="项目年度">
+          <el-form-item label="工法名称">
+            <el-input
+              v-model="formProject.name"
+              placeholder="XX工法"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="8">
+          <el-form-item label="编制单位">
+            <el-input
+              v-model="formProject.department"
+              placeholder="XX技术公司"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="8">
+          <el-form-item label="编写人">
+            <el-input v-model="formProject.writer" placeholder="xxx"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row :gutter="20" align="bottom" justify="space-between" type="flex">
+        <el-col :span="8">
+          <el-form-item label="工法年度">
             <br />
-            <el-select v-model="formProject.year" placeholder="请选择" class="ddlWidth">
+            <el-select
+              v-model="formProject.year"
+              placeholder="请选择"
+              class="ddlWidth"
+            >
               <el-option
                 v-for="item in options_year"
                 :key="item.value_year"
@@ -16,75 +49,43 @@
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item label="项目名称">
-            <el-input v-model="formProject.name" placeholder="XX关键技术研究"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item label="申报单位">
-            <el-input v-model="formProject.department" placeholder="XX技术公司"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-
-      <el-row :gutter="20" align="bottom" justify="space-between" type="flex">
-        <el-col :span="8">
-          <el-form-item label="项目负责人">
-            <el-input v-model="formProject.leader" placeholder="xxx"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item label="计划开始时间">
-            <el-date-picker
-              class="ddlWidth"
-              v-model="formProject.startDate"
-              format="yyyy 年 MM 月 dd 日"
-              value-format="yyyy-MM-dd"
-              placeholder="请选择时间"
-            ></el-date-picker>
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item label="计划结束时间">
-            <el-date-picker
-              class="ddlWidth"
-              v-model="formProject.completeDate"
-              format="yyyy 年 MM 月 dd 日"
-              value-format="yyyy-MM-dd"
-              placeholder="请选择时间"
-            ></el-date-picker>
-          </el-form-item>
-        </el-col>
-      </el-row>
-
-      <el-row :gutter="20">
-        <el-col :span="8">
-          <el-form-item label="项目预算">
-            <el-input v-model="formProject.budget" placeholder="xxx"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item label="技术领域">
-            <el-cascader
-              :props="props"
-              :options="options_techField"
-              class="ddlWidth"
-              v-model="formProject.techField"
-              multiple
-              :show-all-levels="false"
+          <el-form-item label="工法等级">
+            <br />
+            <el-select
+              v-model="formProject.class"
               placeholder="请选择"
-            ></el-cascader>
+              class="ddlWidth"
+            >
+              <el-option
+                v-for="item in options_class"
+                :key="item.value_class"
+                :label="item.label_class"
+                :value="item.value_class"
+              ></el-option>
+            </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item label="技术来源">
-            <el-select class="ddlWidth" v-model="formProject.techSource" multiple placeholder="请选择">
-              <el-option
-                v-for="item in options_techSource"
-                :key="item.value_techSource"
-                :label="item.label_techSource"
-                :value="item.value_techSource"
-              ></el-option>
+          <el-form-item label="工法分类">
+            <br />
+            <el-select
+              v-model="formProject.techField"
+              placeholder="请选择"
+              class="ddlWidth"
+            >
+              <el-option-group
+                v-for="group in options_techField"
+                :key="group.label_techField"
+                :label="group.label_techField"
+              >
+                <el-option
+                  v-for="item in group.options_techField"
+                  :key="item.value_techField"
+                  :label="item.label_techField"
+                  :value="item.value_techField"
+                >
+                </el-option>
+              </el-option-group>
             </el-select>
           </el-form-item>
         </el-col>
@@ -92,36 +93,21 @@
 
       <el-row :gutter="20">
         <el-col :span="24">
-          <el-form-item label="研究目的">
-            <el-input type="textarea" :rows="3" v-model="formProject.purpose" placeholder="xxx"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row :gutter="20">
-        <el-col :span="24">
-          <el-form-item label="组织实施方式">
-            <el-input type="textarea" :rows="3" v-model="formProject.implementation" placeholder></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row :gutter="20">
-        <el-col :span="24">
-          <el-form-item label="核心技术">
-            <el-input type="textarea" :rows="3" v-model="formProject.technology" placeholder></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-
-      <el-row :gutter="20">
-        <el-col :span="24">
-          <el-form-item label="主要创新点">
-            <el-input type="textarea" :rows="3" v-model="formProject.innovation" placeholder="xxx"></el-input>
+          <el-form-item label="内容摘要">
+            <el-input
+              type="textarea"
+              :rows="3"
+              v-model="formProject.summary"
+              placeholder="xxx"
+            ></el-input>
           </el-form-item>
         </el-col>
       </el-row>
 
       <el-form-item>
-        <el-button type="primary" @click="onSubmit(formProject)">保存</el-button>
+        <el-button type="primary" @click="onSubmit(formProject)"
+          >保存</el-button
+        >
       </el-form-item>
     </el-form>
   </div>
@@ -140,164 +126,111 @@ export default {
         year: '',
         name: '',
         department: '',
-        leader: '',
-        startDate: '',
-        completeDate: '',
-        budget: '',
-        techField: [],
-        techSource: [],
-        purpose: '',
-        implementation: '',
-        technology: '',
-        innovation: '',
+        writer: '',
+        
+        techField: "",
+       
+        summary: '',
+        class: '',
+        
         createOn: null,
         creator: '',
         status: 'edit',
        
       },
-      options_year: [
+       options_year: [
         {
-          value_year: '2020',
-          label_year: '2020'
+          value_year: "2016",
+          label_year: "2016",
         },
         {
-          value_year: '2021',
-          label_year: '2021'
+          value_year: "2017",
+          label_year: "2017",
         },
         {
-          value_year: '2022',
-          label_year: '2022'
+          value_year: "2018",
+          label_year: "2018",
         },
         {
-          value_year: '2023',
-          label_year: '2023'
+          value_year: "2019",
+          label_year: "2019",
         },
         {
-          value_year: '2024',
-          label_year: '2024'
-        }
+          value_year: "2020",
+          label_year: "2020",
+        },
+        {
+          value_year: "2021",
+          label_year: "2021",
+        },
+        {
+          value_year: "2022",
+          label_year: "2022",
+        },
+        {
+          value_year: "2023",
+          label_year: "2023",
+        },
+        {
+          value_year: "2024",
+          label_year: "2024",
+        },
       ],
-      year: '',
+      year: "",
 
-      options_techSource: [
+      options_class: [
         {
-          value_techSource: '原始创新',
-          label_techSource: '原始创新'
+          value_class: "企业级",
+          label_class: "企业级",
         },
         {
-          value_techSource: '集成创新',
-          label_techSource: '集成创新'
+          value_class: "省部级",
+          label_class: "省部级",
         },
         {
-          value_techSource: '引进消化吸收再创新',
-          label_techSource: '引进消化吸收再创新'
-        }
+          value_class: "国家级",
+          label_class: "国家级",
+        },
       ],
-      techSource: '',
-      props: { multiple: true },
+      class: "",
+
       options_techField: [
         {
-          value: '工业安装工程',
-          label: '工业安装工程',
-          children: [
+          label_techField: "河南省工法",
+          options_techField: [
             {
-              value: '管道',
-              label: '管道'
+              value_techField: "房屋建筑工程",
+              label_techField: "房屋建筑工程",
             },
             {
-              value: '设备',
-              label: '设备'
+              value_techField: "土木工程",
+              label_techField: "土木工程",
             },
             {
-              value: '电仪',
-              label: '电仪'
+              value_techField: "工业安装工程",
+              label_techField: "工业安装工程",
             },
-            {
-              value: '输变电',
-              label: '输变电'
-            },
-            {
-              value: '防保砌筑',
-              label: '防保砌筑'
-            },
-            {
-              value: '机械',
-              label: '机械'
-            },
-            {
-              value: '焊接检测',
-              label: '焊接检测'
-            },
-            {
-              value: '调试',
-              label: '调试'
-            }
-          ]
+          ],
         },
         {
-          value: '房屋建筑工程',
-          label: '房屋建筑工程',
-          children: [
+          label_techField: "电建工法",
+          options_techField: [
             {
-              value: '地基与基础',
-              label: '地基与基础'
+              value_techField: "水电与新能源",
+              label_techField: "水电与新能源",
             },
             {
-              value: '主体结构',
-              label: '主体结构'
+              value_techField: "基础设施",
+              label_techField: "基础设施",
             },
             {
-              value: '钢结构',
-              label: '钢结构'
+              value_techField: "火电与输变电",
+              label_techField: "火电与输变电",
             },
-            {
-              value: '水电智能',
-              label: '水电智能'
-            }
-          ]
+          ],
         },
-        {
-          value: '土木工程',
-          label: '土木工程',
-          children: [
-            {
-              value: '市政交通',
-              label: '市政交通'
-            },
-            {
-              value: '水利环境',
-              label: '水利环境'
-            },
-            {
-              value: '矿山',
-              label: '矿山'
-            }
-          ]
-        },
-        {
-          value: '其它',
-          label: '其它',
-          children: [
-            {
-              value: '信息技术',
-              label: '信息技术'
-            },
-            {
-              value: '安全技术',
-              label: '安全技术'
-            },
-            {
-              value: '装备制造',
-              label: '装备制造'
-            },
-            {
-              value: '其它',
-              label: '其它'
-            }
-          ]
-        }
       ],
-
+      techField: "",
       rules: {
         year: [{ required: true, message: '请输入年度', trigger: 'blur' }],
         name: [{ required: true, message: '请输入项目名称', trigger: 'blue' }]
@@ -306,7 +239,7 @@ export default {
   },
  
 mounted() {
-    this.getProject(this.$route.params.id)
+    this.getGongfalib(this.$route.params.id)
      console.log('表格数据已获取')
      //this.formProject = this.project
      //console.log("this.formProject"+this.formProject);
@@ -314,17 +247,17 @@ mounted() {
  
 
   computed: {
-    project() {
-      return this.$store.getters.project
-    }
+    // project() {
+    //   return this.$store.getters.project
+    // }
   },
   created() {
    
   },
   methods: {
- getProject(id) {
-      ajax.get(`api/project/${id}`).then((res) => {
-       // console.log("res.data"+res.data);
+ getGongfalib(id) {
+      ajax.get(`api/gongfalib/${id}`).then((res) => {
+       console.log("res.data"+res.data);
          this.formProject = res.data
         //this.$store.dispatch("setProject", res.data);
       });
@@ -335,12 +268,12 @@ mounted() {
     onSubmit(formProject) {      
       
       console.log('edit'+formProject)
-        this.$axios
-          .put(`http://localhost:3000/api/project/${formProject._id}`, formProject)
+       ajax
+          .put(`api/gongfalib/${formProject._id}`, formProject)
           .then((res) => {
             this.feedback = res.data
-            console.log(this.feedback)
-            this.$router.push('/project/list')
+            console.log('this.feedback:'+this.feedback)
+            this.$router.push('/gongfalib')
           })
           .catch((error) => {
             console.log('err+' + error)
