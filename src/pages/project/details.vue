@@ -1,4 +1,13 @@
 <template>
+<el-breadcrumb separator="/">
+  <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+   <el-breadcrumb-item :to="{ path: '/keji' }">科技创新管理</el-breadcrumb-item>
+  <el-breadcrumb-item :to="{ path: '/project' }">立项申请列表</el-breadcrumb-item> 
+ <el-breadcrumb-item>立项申请详情</el-breadcrumb-item>
+</el-breadcrumb>
+
+
+
   <el-collapse v-model="activeNames" @change="handleChange">
     <el-collapse-item title="项目基本情况" name="1">
       <el-row :gutter="20">

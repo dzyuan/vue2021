@@ -1,371 +1,131 @@
+<!--FileOverView-->
 <template>
-  <el-collapse v-model="activeNames" @change="handleChange">
-    <el-collapse-item title="项目基本情况" name="1">
-      <el-row :gutter="20">
-        <el-col :span="2">
-          <div class="grid-content bg-purple">项目年度:</div>
-        </el-col>
-        <el-col :span="4">
-          <div class="grid-content bg-purple">{{ project.year }}</div>
-        </el-col>
-        <el-col :span="2">
-          <div class="grid-content bg-purple">项目名称:</div>
-        </el-col>
-        <el-col :span="4">
-          <div class="grid-content bg-purple">{{ project.name }}</div>
-        </el-col>
-        <el-col :span="2">
-          <div class="grid-content bg-purple">承担单位:</div>
-        </el-col>
-        <el-col :span="4">
-          <div class="grid-content bg-purple">{{ project.department }}</div>
-        </el-col>
-        <el-col :span="2">
-          <div class="grid-content bg-purple">项目负责人:</div>
-        </el-col>
-        <el-col :span="4">
-          <div class="grid-content bg-purple">{{ project.leader }}</div>
-        </el-col>
-      </el-row>
-      <el-row :gutter="20">
-        <el-col :span="2">
-          <div class="grid-content bg-purple">计划开始时间:</div>
-        </el-col>
-        <el-col :span="4">
-          <div class="grid-content bg-purple">
-            {{ dateFormat(project.startDate) }}
-          </div>
-        </el-col>
-        <el-col :span="2">
-          <div class="grid-content bg-purple">计划完成时间:</div>
-        </el-col>
-        <el-col :span="4">
-          <div class="grid-content bg-purple">
-            {{ dateFormat(project.completeDate) }}
-          </div>
-        </el-col>
-        <el-col :span="2">
-          <div class="grid-content bg-purple">技术领域:</div>
-        </el-col>
-        <el-col :span="4">
-          <div class="grid-content bg-purple">
-            {{ fieldFormat(project.techField) }}
-          </div>
-        </el-col>
-        <el-col :span="2">
-          <div class="grid-content bg-purple">技术来源:</div>
-        </el-col>
-        <el-col :span="4">
-          <div class="grid-content bg-purple">
-            {{ sourceFormat(project.techSource) }}
-          </div>
-        </el-col>
-      </el-row>
-      <el-row :gutter="20">
-        <el-col :span="2">
-          <div class="grid-content bg-purple">经费预算:</div>
-        </el-col>
-        <el-col :span="4">
-          <div class="grid-content bg-purple">{{ project.budget }}万元</div>
-        </el-col>
-        <el-col :span="2">
-          <div class="grid-content bg-purple">申请创建时间:</div>
-        </el-col>
-        <el-col :span="4">
-          <div class="grid-content bg-purple">
-            {{ dateFormat1(project.createOn) }}
-          </div>
-        </el-col>
-        <el-col :span="2">
-          <div class="grid-content bg-purple">最后修改时间:</div>
-        </el-col>
-        <el-col :span="4">
-          <div class="grid-content bg-purple">
-            {{ dateFormat1(project.modifyOn) }}
-          </div>
-        </el-col>
-        <el-col :span="2">
-          <div class="grid-content bg-purple">申请书当前状态:</div>
-        </el-col>
-        <el-col :span="4">
-          <div class="grid-content bg-purple">
-            {{ statusFormat(project.status) }}
-          </div>
-        </el-col>
-      </el-row>
-    </el-collapse-item>
-    <el-collapse-item title="研究目的" name="2">
-      <div>{{ project.purpose }}</div>
-    </el-collapse-item>
-    <el-collapse-item title="项目组织实施方法" name="3">
-      <div>{{ project.implementation }}</div>
-    </el-collapse-item>
-    <el-collapse-item title="核心技术" name="4">
-      <div>{{ project.technology }}</div>
-    </el-collapse-item>
-    <el-collapse-item title="主要创新点" name="4">{{
-      project.innovation
-    }}</el-collapse-item>
-    <el-button
-      v-show="project.status == 'review' && userType == 'admin'"
-      type="primary"
-      @click="dialogFormVisible = true"
-      >添加评审意见</el-button
-    >
-    <el-button
-      v-show="project.status == 'edit'"
-      type="primary"
-      @click="onSubmit(project._id)"
-      >提交评审</el-button
-    >
-    <el-button
-      v-show="project.status == 'review' && userType == 'admin'"
-      type="primary"
-      @click="onReject(project._id)"
-      >退回修改</el-button
-    >
-    <el-button
-      v-show="project.status == 'review' && userType == 'admin'"
-      type="primary"
-      @click="onPass(project._id)"
-      >评审通过,</el-button
-    >
-    <el-button
-      v-show="project.status == 'review' && userType == 'admin'"
-      type="primary"
-      @click="onFailed(project._id)"
-      >退回,不予通过</el-button
-    >
+    <div class="fileOverViewBox">
+        <div class="fileOverViewContentBox">
+            <div v-if="fileType==='pdf'">
+                <div style="height:60px;">
+                    <div class="arrow rowCenter">
+                        <span @click="changePdfPage(0)" class="turn" :class="{grey: currentPage===1}">上一页</span>
+                        <div class="pageBox rowCenter">
+                            <span> {{currentPage}}</span>
+                            <span>/</span>
+                            <span>{{pageCount}}</span>
+                        </div>
+                        <span @click="changePdfPage(1)" class="turn" :class="{grey: currentPage===pageCount}">下一页</span>
+                    </div>
+                </div>
+                <pdf
+                        :src="src"
+                        :page="currentPage"
+                        @num-pages="pageCount=$event"
+                        @page-loaded="currentPage=$event"
+                        @loaded="loadPdfHandler">
+                </pdf>
+            </div>
+            <div v-if="/docx/.test(fileType)" v-html="viewHtml" class="docViewBox"></div>
 
-    <el-dialog title="添加评审意见" v-show="dialogFormVisible">
-      <el-form :model="formComment">
-        <el-form-item label="评审意见" :label-width="formLabelWidth">
-          <el-input
-            type="textarea"
-            :rows="3"
-            v-model="formComment.comment"
-            autocomplete="off"
-          ></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button @click="dialogFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="onComment(formComment)"
-            >确 定</el-button
-          >
-        </el-form-item>
-      </el-form>
-    </el-dialog>
-  </el-collapse>
+        </div>
+
+    </div>
 </template>
 
 <script>
-import ajax from "../../service/ajax";
-export default {
-  data() {
-    return {
-      formProject: {
-        _id: "",
-        year: "",
-        name: "",
-        department: "",
-        leader: "",
-        startDate: "",
-        completeDate: "",
-        budget: "",
-        techField: "",
-        techSource: "",
-        purpose: "",
-        implementation: "",
-        technology: "",
-        innovation: "",
-        createOn: "",
-        creator: "",
-        status: "",
-        modifyOn: "",
-      },
-      dialogFormVisible: false,
-      formComment: {
-        comment: "",
-        username: "",
-      },
-      formLabelWidth: "120px",
+    import pdf from 'vue-pdf'
+    import mammoth from 'mammoth'
+    // import axios from 'axios'
+    export default {
+        name: 'content',
+        components: {
+            pdf
+        },
+        data () {
+            return {
+                currentPage: 0, // pdf文件页码
+                pageCount: 0, // pdf文件总页数
+                fileType: '', // 文件类型 src: '', // pdf文件地址
+                src: '', // pdf文件地址
+                viewHtml:'',//网页字符串
+            }
+        },
+        async created(){ // 有时PDF文件地址会出现跨域的情况,这里最好处理一下
+            //let {url}=this.$route.query
+            let url=this.$store.state.gongfalib.url
+            console.log(url)
+            let fileName=url.split('/')[url.split('/').length-1]
+            this.fileType=fileName.split('.')[1]
+            if(/pdf/.test(this.fileType)){
+                this.src = pdf.createLoadingTask(url)
+            }else if(/docx/.test(this.fileType)){
+                // let res=await axios({
+                //     url,
+                //     withCredentials:false,
+                //     responseType:'arraybuffer'
+                // })
+                mammoth.convertToHtml({arrayBuffer: url})
+                    .then(result=>{
+                        console.log(result.value)
+                        this.viewHtml=result.value
+                    })
+                    .done()
 
-      activeNames: ["1", "2", "3", "4"],
-    };
-  },
+            }else {
+                alert('文件格式不支持，仅支持pdf,docx文件预览')
+            }
+        },
+        methods: {
+            // 改变PDF页码,val传过来区分上一页下一页的值,0上一页,1下一页
+            changePdfPage(val) {
+                // console.log(val)
+                if (val === 0 && this.currentPage > 1) {
+                    this.currentPage--
+                    // console.log(this.currentPage)
+                }
+                if (val === 1 && this.currentPage < this.pageCount) {
+                    this.currentPage++
+                    // console.log(this.currentPage)
+                }
+            },
+            // pdf加载时
+            loadPdfHandler() {
+                this.currentPage = 1 // 加载的时候先加载第一页
+            }
 
-  mounted() {
-    this.getProject(this.$route.params.id);
-    console.log("表格数据已获取");
-  },
-
-  computed: {
-    project() {
-      return this.$store.getters.project;
-    },
-    userType() {
-      return this.$store.getters.userType;
-    },
-    username() {
-      return this.$store.getters.username;
-    },
-  },
-  methods: {
-    getProject(id) {
-      ajax.get(`api/project/${id}`).then((res) => {
-        console.log(res.data);
-        this.$store.dispatch("setProject", res.data);
-      });
-    },
-
-    dateFormat(value) {
-      if (!value) return "";
-      value = value.toString();
-      return value.substring(0, 10);
-    },
-    dateFormat1(value) {
-      if (!value) return "";
-      value = value.toString();
-      return value.substring(0, 19).replace(/T/, "  ");
-    },
-    statusFormat(value) {
-      if (!value) {
-        return "";
-      } else if (value == "edit") {
-        return "编制中";
-      } else if (value == "review") {
-        return "已提交,评审中";
-      } else if (value == "success") {
-        return "评审通过";
-      } else if (value == "fail") {
-        return "评审不通过";
-      }
-    },
-    fieldFormat(field) {
-      if (field == undefined) {
-        return "";
-      } else {
-        console.log("field:" + typeof field);
-        field.forEach(function (value) {
-          if (value.length > 1) {
-            console.log("value:" + value);
-            value.shift();
-            console.log("value:" + value);
-          }
-        });
-        return field.join(" , ");
-      }
-    },
-    sourceFormat(source) {
-      if (source == undefined) {
-        return "";
-      } else {
-        return source.join(" , ");
-      }
-    },
-
-    handleChange(val) {
-      console.log(val);
-    },
-
-    onSubmit(id) {
-      const status = { status: "review" };
-      this.$axios
-        .post(`http://localhost:3000/api/project/submit/${id}`, status)
-        .then((res) => {
-          this.feedback = res.data;
-          console.log(this.feedback);
-          //this.$router.push('/project/list')
-        })
-        .catch((error) => {
-          console.log("err+" + error);
-        });
-    },
-    onReject(id) {
-      const status = { status: "edit" };
-
-      this.$axios
-        .post(`http://localhost:3000/api/project/submit/${id}`, status)
-        .then((res) => {
-          this.feedback = res.data;
-          console.log(this.feedback);
-          //this.$router.push('/project/list')
-        })
-        .catch((error) => {
-          console.log("err+" + error);
-        });
-    },
-    onPass(id) {
-      const status = { status: "passed" };
-      this.$axios
-        .post(`http://localhost:3000/api/project/submit/${id}`, status)
-        .then((res) => {
-          this.feedback = res.data;
-          console.log(this.feedback);
-          //this.$router.push('/project/list')
-        })
-        .catch((error) => {
-          console.log("err+" + error);
-        });
-    },
-    onFailed(id) {
-      const status = { status: "failed" };
-      this.$axios
-        .post(`http://localhost:3000/api/project/submit/${id}`, status)
-        .then((res) => {
-          this.feedback = res.data;
-          console.log(this.feedback);
-          //this.$router.push('/project/list')
-        })
-        .catch((error) => {
-          console.log("err+" + error);
-        });
-    },
-    onComment(formComment) {
-      formComment.username = this.username;
-      this.$axios
-        .post(
-          `http://localhost:3000/api/project/comment/${this.project._id}`,
-          formComment
-        )
-        .then((res) => {
-          this.dialogFormVisible = false;
-          this.feedback = res.data;
-          console.log(this.feedback);
-          //this.$router.push('/project/list')
-        })
-        .catch((error) => {
-          console.log("err+" + error);
-        });
-    },
-  },
-  filters: {},
-};
+        }
+    }
 </script>
 
-<style>
-.el-row {
-  margin-bottom: 20px;
-}
-.el-col {
-  border-radius: 4px;
-}
-.bg-purple-dark {
-  background: #99a9bf;
-}
-.bg-purple {
-  background: #d3dce6;
-}
-.bg-purple-light {
-  background: #e5e9f2;
-}
-.grid-content {
-  border-radius: 4px;
-  min-height: 36px;
-}
-.row-bg {
-  padding: 10px 0;
-  background-color: #f9fafc;
-}
-</style>
+<style scoped lang="scss">
+    .fileOverViewBox{
+        background:#000000;
+        min-width:100vh;
+        .fileOverViewContentBox{
+            width:1000px;
+            margin:0 auto;
+            background:#ffffff;
+            .arrow{
+                position: fixed;
+                width:100%;
+                height:60px;
+                z-index: 100;
+                -webkit-box-shadow: 0 2px 2px rgba(0,0,0,0.5);
+                -moz-box-shadow: 0 2px 2px rgba(0,0,0,0.5);
+                box-shadow:  0 2px 2px rgba(0,0,0,0.5);
+                background:rgba(255,255,255,0.9);
+                .turn{
+                    cursor:pointer;
+                    &:hover{
+                        color:#58A5FE;
+                    }
+                }
+                .pageBox{
+                    margin:0 20px;
+                }
+            }
+            .docViewBox{
+                padding:20px;
+            }
+        }
+    }
 
+
+</style>

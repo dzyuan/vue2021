@@ -153,7 +153,7 @@ export default {
         createOn: null,
         creator: '',
         status: 'edit',
-       
+        modifyOn: null,
       },
       options_year: [
         {

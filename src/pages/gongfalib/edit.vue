@@ -1,6 +1,14 @@
 <template>
+<el-breadcrumb separator="/">
+  <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+   <el-breadcrumb-item :to="{ path: '/keji' }">科技创新管理</el-breadcrumb-item>
+  <el-breadcrumb-item :to="{ path: '/project' }">立项申请列表</el-breadcrumb-item> 
+ <el-breadcrumb-item>修改立项申请</el-breadcrumb-item>
+</el-breadcrumb>
+
+
   <div>
-   <el-form
+    <el-form
       ref="formProject"
       :inline="false"
       :model="formProject"
@@ -92,7 +100,7 @@
       </el-row>
 
       <el-row :gutter="20">
-        <el-col :span="24">
+        <el-col :span="16">
           <el-form-item label="内容摘要">
             <el-input
               type="textarea"
@@ -101,6 +109,35 @@
               placeholder="xxx"
             ></el-input>
           </el-form-item>
+        </el-col>
+
+        <el-col :span="8">
+          <el-row :gutter="20">
+            <el-col>
+              <el-tag >{{formProject.attachment?formProject.attachment.split("/").slice(-1):''}}</el-tag>
+            </el-col>
+            <el-col>
+              <el-upload
+                class="upload-demo"
+                ref="upload"
+                action="http://localhost:3000/api/upload/gongfalib"
+                :on-preview="handlePreview"
+                :on-remove="handleRemove"
+                :on-success="handleUploadSuccess"
+                :file-list="fileList"
+                :disabled="uploadVisable"
+                :limit="1"
+              >
+                <el-button size="small" type="primary">重新选取文件</el-button>
+
+                <template #tip>
+                  <div class="el-upload__tip">
+                    只能上传 pdf 文件，且不超过 5Mb
+                  </div>
+                </template>
+              </el-upload>
+            </el-col>
+          </el-row>
         </el-col>
       </el-row>
 
@@ -116,29 +153,21 @@
 <script>
 import ajax from "../../service/ajax";
 
-
-
 export default {
   data() {
     return {
       formProject: {
-        _id:'',
-        year: '',
-        name: '',
-        department: '',
-        writer: '',
-        
+        _id: "",
+        year: "",
+        name: "",
+        department: "",
+        writer: "",
         techField: "",
-       
-        summary: '',
-        class: '',
-        
-        createOn: null,
-        creator: '',
-        status: 'edit',
-       
+        summary: "",
+        class: "",
+        attachment: "",
       },
-       options_year: [
+      options_year: [
         {
           value_year: "2016",
           label_year: "2016",
@@ -232,55 +261,78 @@ export default {
       ],
       techField: "",
       rules: {
-        year: [{ required: true, message: '请输入年度', trigger: 'blur' }],
-        name: [{ required: true, message: '请输入项目名称', trigger: 'blue' }]
-      }
-    }
+        year: [{ required: true, message: "请输入年度", trigger: "blur" }],
+        name: [{ required: true, message: "请输入项目名称", trigger: "blue" }],
+      },
+    };
   },
- 
-mounted() {
-    this.getGongfalib(this.$route.params.id)
-     console.log('表格数据已获取')
-     //this.formProject = this.project
-     //console.log("this.formProject"+this.formProject);
-    },
- 
+
+  mounted() {
+    this.getGongfalib(this.$route.params.id);
+    console.log("表格数据已获取");
+    //this.formProject = this.project
+    //console.log("this.formProject"+this.formProject);
+  },
 
   computed: {
     // project() {
     //   return this.$store.getters.project
     // }
   },
-  created() {
-   
-  },
+  created() {},
   methods: {
- getGongfalib(id) {
+    modalUploadOpen(fileList) {
+      this.$alert(fileList.originalname, "上传成功", {
+        confirmButtonText: "确定",
+      });
+    },
+
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePreview(file) {
+      console.log(file);
+    },
+    handleUploadSuccess(fileList) {
+      console.log("this.fileList=" + fileList.originalname);
+      this.ButtonDisabled = false;
+      this.formProject.attachment = "upload/gongfalib/" + fileList.originalname;
+
+      this.uploadVisable = true;
+      this.modalUploadOpen(fileList);
+    },
+
+    handleExceed(files, fileList) {
+      this.$message.warning(
+        `当前限制选择 1 个文件，本次选择了 ${files.length} 个文件，共选择了 ${
+          files.length + fileList.length
+        } 个文件`
+      );
+    },
+
+    getGongfalib(id) {
       ajax.get(`api/gongfalib/${id}`).then((res) => {
-       console.log("res.data"+res.data);
-         this.formProject = res.data
+        console.log("res.data" + res.data);
+        this.formProject = res.data;
         //this.$store.dispatch("setProject", res.data);
       });
     },
 
-
-
-    onSubmit(formProject) {      
-      
-      console.log('edit'+formProject)
-       ajax
-          .put(`api/gongfalib/${formProject._id}`, formProject)
-          .then((res) => {
-            this.feedback = res.data
-            console.log('this.feedback:'+this.feedback)
-            this.$router.push('/gongfalib')
-          })
-          .catch((error) => {
-            console.log('err+' + error)
-          })
-    }
-  }
-}
+    onSubmit(formProject) {
+      console.log("edit" + formProject);
+      ajax
+        .put(`api/gongfalib/${formProject._id}`, formProject)
+        .then((res) => {
+          this.feedback = res.data;
+          console.log("this.feedback:" + this.feedback);
+          this.$router.push("/gongfalib");
+        })
+        .catch((error) => {
+          console.log("err+" + error);
+        });
+    },
+  },
+};
 </script>
 
 <style>

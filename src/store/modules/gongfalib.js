@@ -1,6 +1,7 @@
 const state = () => ({
   gongfalibs: [],
-  gongfalib: {}
+  gongfalib: {},
+  url:''
 
 });
 const getters = {
@@ -15,7 +16,9 @@ const mutations = {
   SET_GONGFALIB(state, payload) {
     state.gongfalib = payload;
   },
-
+  SET_URL(state, payload) {
+    state.url = payload;
+  },
 };
 
 const actions = {
@@ -28,6 +31,9 @@ const actions = {
     console.log(gongfalib);
     commit('SET_GONGFALIB', gongfalib);
   },
+  setUrl({commit},url){
+    commit('SET_URL', url);
+  }
 };
 
 

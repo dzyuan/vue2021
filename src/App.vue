@@ -1,7 +1,7 @@
 <template>
   <el-container id="app">
     <el-header
-      v-show="this.$store.state.login.userInfo.userId"
+      v-if="this.$store.state.login.userInfo.userId"
       style="text-align: right; font-size: 12px"
     >
       <TopNav />
@@ -10,7 +10,7 @@
     <el-main>
       <div class="main"><router-view></router-view></div>
     </el-main>
-    <el-footer  v-show="this.$store.state.login.userInfo.userId">
+    <el-footer  v-if="this.$store.state.login.userInfo.userId">
       <FooterBar />
     </el-footer>
   </el-container>

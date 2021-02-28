@@ -1,4 +1,10 @@
 <template>
+<el-breadcrumb separator="/">
+  <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+   <el-breadcrumb-item :to="{ path: '/keji' }">科技创新管理</el-breadcrumb-item>
+  <el-breadcrumb-item :to="{ path: '/project' }">立项申请列表</el-breadcrumb-item> 
+ <el-breadcrumb-item>添加立项申请</el-breadcrumb-item>
+</el-breadcrumb>
   <div>
     <el-form ref="formProject" :inline="false" :model="formProject" :rules="rules">
       <el-row :gutter="20" align="middle" justify="space-between" type="flex">

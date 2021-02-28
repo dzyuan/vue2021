@@ -1,5 +1,10 @@
 <template>
- <el-table :data="gongfalibs" style="width: 100%">
+<el-breadcrumb separator="/">
+  <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+  <el-breadcrumb-item :to="{ path: '/gongfalib' }">工法列表</el-breadcrumb-item>
+ 
+</el-breadcrumb>
+  <el-table :data="gongfalibs" style="width: 100%">
     <el-table-column label="序号" type="index" width="50"></el-table-column>
     <el-table-column prop="name" label="工法名称" width="200"></el-table-column>
     <el-table-column
@@ -21,24 +26,41 @@
       width="120"
     ></el-table-column>
     <el-table-column prop="summary" label="内容摘要"></el-table-column>
-    <el-table-column fixed="right" label="操作" width="150">
+    
+    <el-table-column fixed="right" label="操作" width="300">
       <template #default="scope">
-        <div>
-          <el-button @click="viewGongfalib(scope.row._id)" type="text" size="small"
+        <el-space :size="size" >
+
+
+          <el-button v-if="scope.row.attachment" @click="downloadGongfalib(scope.row.attachment)"  type="text"
+            size="small">下载工法</el-button>
+          
+          <el-button
+            @click="viewGongfalib(scope.row._id)"
+            type="text"
+            size="small"
             >查看工法</el-button
           >
 
-          <el-button @click="editGongfalib(scope.row._id)" type="text" size="small"
+
+
+          <el-button
+            @click="editGongfalib(scope.row._id)"
+            type="text"
+            size="small"
             >编辑</el-button
           >
-          <el-button @click="deleteGongfalib(scope.row._id)" type="text" size="small"
+          <el-button
+            @click="deleteGongfalib(scope.row._id)"
+            type="text"
+            size="small"
             >删除</el-button
           >
-        </div>
+        </el-space>
       </template>
     </el-table-column>
   </el-table>
-   
+
   <span><router-link to="/gongfalib/add">新增工法</router-link></span>
 </template>
 
@@ -48,6 +70,7 @@ import ajax from "../../service/ajax";
 export default {
   data() {
     return {
+      size:20,
       gongfalibs: [],
     };
   },
@@ -61,6 +84,11 @@ export default {
     console.log("表格数据已获取");
   },
   methods: {
+     goBack() {
+        console.log('go back');
+         this.$router.go(-1)
+      },
+
     getGongfalibs() {
       ajax
         .get("api/gongfalib")
@@ -77,9 +105,19 @@ export default {
     editGongfalib(id) {
       this.$router.push({ path: `/gongfalib/${id}/edit` });
     },
+ downloadGongfalib(attachment) {
+   window.location.href=`http://localhost:3000/${attachment.substring(7)}`
+ },
+     
     viewGongfalib(id) {
-      this.$router.push({ path: `/gongfalib/${id}/content` });
+      ajax.get(`api/gongfalib/${id}`).then((res) => {
+
+ this.$store.dispatch("setUrl", `http://localhost:3000/${res.data.attachment.substring(7)}`);
+this.$router.push({ path: `/gongfalib/${id}/content` });
+     // window.location.href =`http://localhost:3000/${res.data.attachment.substring(7)}`;
+       })    
     },
+
     deleteGongfalib(id) {
       ajax
         .delete(`api/gongfalib/${id}`)
@@ -108,6 +146,14 @@ export default {
         });
         return field.join(" , ");
       }
+    },
+    urlFormat: function (row, column) {
+     
+      var url = row[column.property];
+      if (url == undefined) {
+        return "";
+      }
+      return `<a href="http://localhost:3000/${url.substring(7)}">查看工法</a>`;
     },
   },
 };

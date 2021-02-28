@@ -1,4 +1,9 @@
 <template>
+<el-breadcrumb separator="/">
+  <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+  <el-breadcrumb-item :to="{ path: '/gongfalib' }">工法列表</el-breadcrumb-item>
+ <el-breadcrumb-item>添加工法</el-breadcrumb-item>
+</el-breadcrumb>
   <div>
     <el-form
       ref="formProject"
@@ -92,7 +97,7 @@
       </el-row>
 
       <el-row :gutter="20">
-        <el-col :span="24">
+        <el-col :span="16">
           <el-form-item label="内容摘要">
             <el-input
               type="textarea"
@@ -102,39 +107,37 @@
             ></el-input>
           </el-form-item>
         </el-col>
-      </el-row>
 
+        <el-col :span="8">
+          <el-upload
+            class="upload-demo"
+            ref="upload"
+            action="http://localhost:3000/api/upload/gongfalib" 
+            :on-preview="handlePreview"
+            :on-remove="handleRemove"
+            :on-success="handleUploadSuccess"
+            :file-list="fileList"
+            :disabled="uploadVisable"
+         
+            :limit="1"
+          >
+            <el-button size="small" type="primary">选取文件</el-button>
+
+            <template #tip>
+              <div class="el-upload__tip">只能上传 pdf 文件，且不超过 5Mb</div>
+            </template>
+          </el-upload>
+        </el-col>
+      </el-row>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit(formProject)"
-          :disabled=ButtonDisabled>保存</el-button
+        <el-button
+          type="primary"
+          @click="onSubmit(formProject)"
+          :disabled="ButtonDisabled"
+          >保存</el-button
         >
       </el-form-item>
     </el-form>
-
-    <el-upload
-      class="upload-demo"
-      ref="upload"
-      action="http://10.162.98.161:3000/api/upload"
-      :on-preview="handlePreview"
-      :on-remove="handleRemove"
-      :file-list="fileList"
-      :auto-upload="false"
-      v-if="uploadVisable"
-    >
-      <template #trigger>
-        <el-button size="small" type="primary">选取文件</el-button>
-      </template>
-      <el-button
-        style="margin-left: 10px"
-        size="small"
-        type="success"
-        @click="submitUpload"
-        >上传到服务器</el-button
-      >
-      <template #tip>
-        <div class="el-upload__tip">只能上传 doc 文件，且不超过 5Mb</div>
-      </template>
-    </el-upload>
   </div>
 </template>
 
@@ -144,17 +147,21 @@ import ajax from "../../service/ajax";
 export default {
   data() {
     return {
-      uploadVisable:false,
-      ButtonDisabled:false,
+      dist:'gongfalib',
+      uploadVisable: false,
+      ButtonDisabled: true,
       formProject: {
         year: "2020",
         name: "科技创新管理系统",
         department: "技术中心",
         writer: "豆志远",
-        class: "",
+        class: "省部",
         techField: "",
         summary: "123",
+        attachment: "",
+     
       },
+      upload: {},
       options_year: [
         {
           value_year: "2016",
@@ -264,28 +271,43 @@ export default {
     //console.log( this.$store.state.login.userInfo.token)
   },
   methods: {
-    submitUpload() {
-      this.$refs.upload.submit()
-      this.$router.push("/gongfalib")
+    modalUploadOpen(fileList) {
+      this.$alert(fileList.originalname, "上传成功", {
+        confirmButtonText: "确定",
+      });
     },
+
     handleRemove(file, fileList) {
       console.log(file, fileList);
     },
     handlePreview(file) {
       console.log(file);
     },
-  on-success(){
-    
-  }
+    handleUploadSuccess(fileList) {
+      console.log("this.fileList=" + fileList.originalname);
+      this.ButtonDisabled = false;
+      this.formProject.attachment = "upload/gongfalib/" + fileList.originalname;
+
+      this.uploadVisable = true;
+      this.modalUploadOpen(fileList);
+    },
+
+    handleExceed(files, fileList) {
+      this.$message.warning(
+        `当前限制选择 1 个文件，本次选择了 ${files.length} 个文件，共选择了 ${
+          files.length + fileList.length
+        } 个文件`
+      );
+    },
+
     onSubmit(formProject) {
       ajax
         .post("api/gongfalib", formProject)
         .then((res) => {
           this.feedback = res.data;
-          this.ButtonDisabled=true;
-          this.uploadVisable=true;
-          console.log("this.feedback=" + this.feedback);
-         
+
+          // console.log("this.feedback=" + this.feedback);
+          this.$router.push("/gongfalib");
         })
         .catch((error) => {
           console.log("err+" + error);
