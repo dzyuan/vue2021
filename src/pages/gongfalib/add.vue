@@ -155,8 +155,8 @@ export default {
         name: "科技创新管理系统",
         department: "技术中心",
         writer: "豆志远",
-        class: "省部",
-        techField: "",
+        class: "省部级",
+        techField: "火电与输变电",
         summary: "123",
         attachment: "",
      
