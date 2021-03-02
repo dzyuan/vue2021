@@ -2,7 +2,7 @@
 import { createApp } from 'vue';
 import ElementPlus from 'element-plus';
 import 'element-plus/lib/theme-chalk/index.css';
-
+import locale from 'element-plus/lib/locale/lang/zh-cn'
 import App from './App.vue';
 import axios from 'axios';
 import vueaxios from 'vue-axios';
@@ -17,5 +17,5 @@ import router from './router';
 // App.config.devtools = true
 // }
 
-createApp(App).use(store).use(router).use(ElementPlus).use(vueaxios, axios).mount('#app');
+createApp(App).use(store).use(router).use(ElementPlus, { locale }).use(vueaxios, axios).mount('#app');
 //createApp(App).use(store).use(router).use(ElementPlus).mount('#app');

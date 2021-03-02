@@ -1,24 +1,31 @@
 <template>
   <div class="home">
-    <div class="block">
+    <div class="left">
       <el-carousel height="500px">
         <el-carousel-item v-for="item in 4" :key="item">
           <h3 class="small">{{ item }}</h3>
         </el-carousel-item>
       </el-carousel>
-    </div>
-    <br />
-
-    <div>
-      <el-row :gutter="20">
-        <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-        <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-        <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
+          <br />
+       <el-row :gutter="20">
+        <el-col :span="12"><div class="grid-content bg-purple"></div></el-col>
+        <el-col :span="12"><div class="grid-content bg-purple"></div></el-col>
+        
       </el-row>
+      <el-row :gutter="20">
+        <el-col :span="12"><div class="grid-content bg-purple"></div></el-col>
+        <el-col :span="12"><div class="grid-content bg-purple"></div></el-col>
+        
+      </el-row>
+    </div>
+
+
+    <div class="right">
+     
    
-    <el-calendar v-model="value" width=25%> </el-calendar>
+    <el-calendar v-model="value"  height="500px"> </el-calendar>
      </div>
-    <div></div>
+   
   </div>
 </template>
 
@@ -39,6 +46,27 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.home{
+   display: flex;
+}
+
+   
+
+.right{
+    position: absolute;
+    right: 0;
+
+    width: 400px;
+    background: blue;
+}
+.left{
+    width: calc(100% - 400px);
+  
+
+}
+
+
+
 .el-carousel__item h3 {
   color: #475669;
   font-size: 14px;
