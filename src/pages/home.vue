@@ -6,66 +6,67 @@
           <h3 class="small">{{ item }}</h3>
         </el-carousel-item>
       </el-carousel>
-          <br />
-       <el-row :gutter="20">
+      <br />
+      <el-row :gutter="20">
         <el-col :span="12"><div class="grid-content bg-purple"></div></el-col>
         <el-col :span="12"><div class="grid-content bg-purple"></div></el-col>
-        
       </el-row>
       <el-row :gutter="20">
         <el-col :span="12"><div class="grid-content bg-purple"></div></el-col>
         <el-col :span="12"><div class="grid-content bg-purple"></div></el-col>
-        
       </el-row>
     </div>
 
-
     <div class="right">
-     
-   
-    <el-calendar v-model="value"  height="500px"> </el-calendar>
-     </div>
-   
+      <el-calendar v-model="value" height="500px">
+        <template  #dateCell="{data}">
+          <el-tooltip  
+          >
+            {{data.day}}
+          </el-tooltip>
+        </template>
+      </el-calendar>
+    </div>
   </div>
 </template>
 
 <script>
+import holiday from '../../public/holiday'
+
 export default {
+   holiday,
   name: "home",
   props: {
     msg: String,
   },
   data() {
-      return {
-        value: new Date()
-      }
-    },
-  
+    return {
+      value: new Date(),
+    };
+  },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.home{
-   display: flex;
+.home {
+  display: flex;
 }
 
-   
-
-.right{
-    position: absolute;
-    right: 0;
-
-    width: 400px;
-    background: blue;
-}
-.left{
-    width: calc(100% - 400px);
-  
-
+.el-calendar-table .el-calendar-day {
+  height: 10px;
 }
 
+.right {
+  position: absolute;
+  right: 0;
 
+  width: 400px;
+  background: blue;
+}
+.left {
+  width: calc(100% - 400px);
+}
 
 .el-carousel__item h3 {
   color: #475669;
