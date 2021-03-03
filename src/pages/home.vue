@@ -18,12 +18,19 @@
     </div>
 
     <div class="right">
-      <el-calendar v-model="value" height="500px">
-        <template  #dateCell="{data}">
-          <el-tooltip  
-          >
-            {{data.day}}
-          </el-tooltip>
+      <el-calendar>
+        <template #dateCell="{ data }">
+          <el-popover placement="top" trigger="hover">
+            <template #reference>
+              <p class="day" :class="data.isSelected ? 'is-selected' : ''">
+                <el-badge :value="12" class="item">
+                  <span>{{ Number(data.day.split("-")[2]) }}</span>
+                </el-badge>
+              </p>
+            </template>
+
+            <p v-for="(item, i) in holiday[data.day]" :key="i">{{ item }}</p>
+          </el-popover>
         </template>
       </el-calendar>
     </div>
@@ -31,19 +38,19 @@
 </template>
 
 <script>
-import holiday from '../../public/holiday'
+import holiday from "../../public/holiday.js";
 
 export default {
-   holiday,
   name: "home",
   props: {
     msg: String,
   },
   data() {
     return {
-      value: new Date(),
+      holiday,
     };
   },
+  methods: {},
 };
 </script>
 
@@ -53,16 +60,11 @@ export default {
   display: flex;
 }
 
-.el-calendar-table .el-calendar-day {
-  height: 10px;
-}
-
 .right {
   position: absolute;
   right: 0;
 
   width: 400px;
-  background: blue;
 }
 .left {
   width: calc(100% - 400px);
