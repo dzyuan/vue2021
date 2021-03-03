@@ -20,11 +20,23 @@
     <div class="right">
       <el-calendar>
         <template #dateCell="{ data }">
-          <el-popover placement="top" trigger="hover">
+          <el-popover
+            placement="top"
+            trigger="hover"
+            :disabled="!holiday.hasOwnProperty(data.day)"
+          >
             <template #reference>
               <p class="day" :class="data.isSelected ? 'is-selected' : ''">
-                <el-badge :value="12" class="item">
-                  <span>{{ Number(data.day.split("-")[2]) }}</span>
+                <el-badge
+                  :value="
+                    holiday[data.day]
+                      ? Object.values(holiday[data.day]).length
+                      : ''
+                  "
+                  class="item"
+                  :hidden="!holiday.hasOwnProperty(data.day)"
+                >
+                  <span>{{ data.day.split("-")[2] }}</span>
                 </el-badge>
               </p>
             </template>
@@ -58,6 +70,16 @@ export default {
 <style scoped>
 .home {
   display: flex;
+}
+
+::v-deep .el-calendar-table .el-calendar-day {
+  height: 50px;
+}
+
+.item {
+  padding-top: 5px;
+  padding-right: 5px;
+  
 }
 
 .right {
