@@ -2,13 +2,25 @@
   <div class="home">
     <div class="left">
       <el-carousel height="500px">
-        <el-carousel-item v-for="item in 4" :key="item">
-          <h3 class="small">{{ item }}</h3>
+        <el-carousel-item v-for="item in images" :key="item">
+          <el-image
+            style="width: 600px; height: 100px"
+            :src="item"
+            fit="contain"
+            ></el-image>
         </el-carousel-item>
       </el-carousel>
       <br />
       <el-row :gutter="20">
-        <el-col :span="12"><div class="grid-content bg-purple"></div></el-col>
+        <el-col :span="12"><div class="grid-content bg-purple"><el-image
+            style="width: 500px; height: 300px"
+            :src= "require('../../public/obd.jpg')"
+            fit="contain"
+            ><template #error>
+              <div class="image-slot">
+                <i class="el-icon-picture-outline"></i>
+              </div> </template
+          ></el-image></div></el-col>
         <el-col :span="12"><div class="grid-content bg-purple"></div></el-col>
       </el-row>
       <el-row :gutter="20">
@@ -59,6 +71,12 @@ export default {
   },
   data() {
     return {
+      images: [
+        "require('../../public/obd.jpg')",
+        "../../public/image2.jpg",
+        "../../public/image3.jpg",
+        "../../public/image4.jpg",
+      ],
       holiday,
     };
   },
@@ -79,7 +97,6 @@ export default {
 .item {
   padding-top: 5px;
   padding-right: 5px;
-  
 }
 
 .right {
