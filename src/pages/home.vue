@@ -1,26 +1,29 @@
 <template>
   <div class="home">
     <div class="left">
-      <el-carousel height="500px">
+      <el-carousel :interval="4000" type="card" height="400px">
         <el-carousel-item v-for="item in images" :key="item">
           <el-image
-            style="width: 600px; height:300px"
+            style="width: 600px; height: 400px"
             :src="item"
-            fit="contain"
-            ></el-image>
+            fit="fill"
+          ></el-image>
         </el-carousel-item>
       </el-carousel>
       <br />
       <el-row :gutter="20">
-        <el-col :span="12"><div class="grid-content bg-purple"><el-image
-            style="width: 500px; height: 300px"
-            :src= "require('../../public/obd.jpg')"
-            fit="scale-down"
-            ><template #error>
-              <div class="image-slot">
-                <i class="el-icon-picture-outline"></i>
-              </div> </template
-          ></el-image></div></el-col>
+        <el-col :span="12"
+          ><div class="grid-content bg-purple">
+            <el-image
+              style="width: 500px; height: 300px"
+              :src="require('../../public/obd.jpg')"
+              fit="contain"
+              ><template #error>
+                <div class="image-slot">
+                  <i class="el-icon-picture-outline"></i>
+                </div> </template
+            ></el-image></div
+        ></el-col>
         <el-col :span="12"><div class="grid-content bg-purple"></div></el-col>
       </el-row>
       <el-row :gutter="20">
@@ -72,10 +75,14 @@ export default {
   data() {
     return {
       images: [
-        "require('@/assets/image1.jpg')",
-        "../../public/image2.jpg",
-        "../../public/image3.jpg",
-        "../../public/image4.jpg",
+        require("../../public/image1.jpg"),
+        require("../../public/image2.jpg"),
+        require("../../public/image3.jpg"),
+        require("../../public/image4.jpg"),
+        require("../../public/image5.jpg"),
+        require("../../public/image6.jpg"),
+        require("../../public/image7.jpg"),
+        require("../../public/image8.jpg"),
       ],
       holiday,
     };
