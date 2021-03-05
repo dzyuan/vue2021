@@ -4,7 +4,7 @@
       <el-carousel height="500px">
         <el-carousel-item v-for="item in images" :key="item">
           <el-image
-            style="width: 600px; height: 100px"
+            style="width: 600px; height:300px"
             :src="item"
             fit="contain"
             ></el-image>
@@ -15,7 +15,7 @@
         <el-col :span="12"><div class="grid-content bg-purple"><el-image
             style="width: 500px; height: 300px"
             :src= "require('../../public/obd.jpg')"
-            fit="contain"
+            fit="scale-down"
             ><template #error>
               <div class="image-slot">
                 <i class="el-icon-picture-outline"></i>
@@ -72,7 +72,7 @@ export default {
   data() {
     return {
       images: [
-        "require('../../public/obd.jpg')",
+        "require('@/assets/image1.jpg')",
         "../../public/image2.jpg",
         "../../public/image3.jpg",
         "../../public/image4.jpg",
