@@ -1,7 +1,10 @@
 <template>
   <div class="home">
     <div class="left">
-      <el-carousel :interval="4000" type="card" height="400px">
+  
+      <el-row :gutter="20" class="news">
+        <el-col :span="16">
+          <el-carousel :interval="4000" type="card" height="400px">
         <el-carousel-item v-for="item in images" :key="item">
           <el-image
             style="width: 600px; height: 400px"
@@ -10,21 +13,8 @@
           ></el-image>
         </el-carousel-item>
       </el-carousel>
-      <br />
-      <el-row :gutter="20">
-        <el-col :span="12"
-          ><div class="grid-content bg-purple">
-            <el-image
-              style="width: 500px; height: 300px"
-              :src="require('../../public/obd.jpg')"
-              fit="contain"
-              ><template #error>
-                <div class="image-slot">
-                  <i class="el-icon-picture-outline"></i>
-                </div> </template
-            ></el-image></div
-        ></el-col>
-        <el-col :span="12"><div class="grid-content bg-purple"></div></el-col>
+        </el-col>
+        <el-col :span="8"><News newsName="科技动态" /></el-col>
       </el-row>
       <el-row :gutter="20">
         <el-col :span="12"><div class="grid-content bg-purple"></div></el-col>
@@ -66,9 +56,12 @@
 
 <script>
 import holiday from "../../public/holiday.js";
-
+import News from "../components/news";
 export default {
   name: "home",
+  components: {
+    News,
+  },
   props: {
     msg: String,
   },
@@ -98,7 +91,7 @@ export default {
 }
 
 ::v-deep .el-calendar-table .el-calendar-day {
-  height: 50px;
+  height: 45px;
 }
 
 .item {
@@ -133,7 +126,9 @@ export default {
 }
 
 .el-row {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+  border-radius: 2px;
 }
 .el-col {
   border-radius: 4px;
