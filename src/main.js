@@ -9,6 +9,9 @@ import vueaxios from 'vue-axios';
 
 import store from './store';
 import router from './router';
+if (process.env.NODE_ENV == 'development') {
+    require('./mock')
+}
 // if (process.env.NODE_ENV === 'development') {
 //     if ('__VUE_DEVTOOLS_GLOBAL_HOOK__' in window) {
 //         // 这里__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue赋值一个createApp实例

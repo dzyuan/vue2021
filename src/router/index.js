@@ -17,8 +17,11 @@ import gongfalibcontent from '../pages/gongfalib/content.vue';
 import addproject from '../pages/project/add.vue';
 import projectdetails from '../pages/project/details';
 import editproject from '../pages/project/edit';
+import postlist from '../pages/post/list.vue';
+import postcontent from '../pages/post/content.vue';
 import login from '../pages/login.vue';
 import reg from '../pages/reg.vue';
+
 
 const routes = [
   { path: '/', name: 'Home', component: Home },
@@ -37,6 +40,8 @@ const routes = [
   { path: '/project', name: 'projectlist', component: projectlist },
   { path: '/project/:id/details', name: 'projectdetails', component: projectdetails },
   { path: '/project/:id/edit', name: 'editproject', component: editproject },
+  { path: '/post', name: 'postlist', component: postlist },
+  { path: '/post/:id/content', name: 'postcontent', component: postcontent },
   { path: '/project/add', name: 'addproject', component: addproject },
   { path: '/login', name: 'login', component: login },
   { path: '/reg', name: 'reg', component: reg },

@@ -14,7 +14,7 @@
         </el-carousel-item>
       </el-carousel>
         </el-col>
-        <el-col :span="8"><News newsName="科技动态" /></el-col>
+        <el-col :span="8"><Posts postsName="科技动态" /></el-col>
       </el-row>
       <el-row :gutter="20">
         <el-col :span="12"><div class="grid-content bg-purple"></div></el-col>
@@ -56,11 +56,11 @@
 
 <script>
 import holiday from "../../public/holiday.js";
-import News from "../components/news";
+import Posts from "../components/posts";
 export default {
   name: "home",
   components: {
-    News,
+    Posts,
   },
   props: {
     msg: String,
@@ -80,7 +80,9 @@ export default {
       holiday,
     };
   },
-  methods: {},
+  methods: {
+    
+  },
 };
 </script>
 

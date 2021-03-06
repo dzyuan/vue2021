@@ -140,7 +140,7 @@ export default {
 
 
 
-<style >
+<style>
 .nav {
   background: #525288;
 }
@@ -158,11 +158,11 @@ a {
 }
 .router-link-active {
   text-decoration: none;
-  color: #fff;
+  color: rgb(17, 13, 13);
 }
 a:visited {
   text-decoration: none;
-  color: #fff;
+  color: rgb(61, 2, 2);
 }
 a:hover {
   color: red;
